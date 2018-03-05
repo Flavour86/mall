@@ -1,0 +1,28 @@
+<style lang="less">
+
+</style>
+<template>
+  <header />
+  <view class="container">
+    <button @tap="viewTap">跳往example页面</button>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Header from '@/components/common/header'
+
+  export default class Index extends wepy.page {
+    components = {
+      header: Header
+    }
+
+    methods = {
+      viewTap() {
+        wepy.navigateTo({
+          url: '../example/example'
+        })
+      }
+    }
+  }
+</script>

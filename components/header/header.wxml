@@ -1,6 +1,0 @@
-<view class="page-header">
-  <text class="page-title">Yoho!Buy</text>
-  <text class="iconfont icon-transfer" />
-  <text class="iconfont icon-menu" />
-  <text class="iconfont icon-search"></text>
-</view>

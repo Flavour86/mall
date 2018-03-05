@@ -1,0 +1,21 @@
+<style lang="less" src="./header.less" />
+<template>
+  <view class="page-header">
+    <text class="page-title">Yoho!Buy</text>
+    <icon1 type="transfer" />
+    <icon2 type="menu" />
+    <icon3 type="search" />
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import Icon from '../share/icon'
+
+  export default class Header extends wepy.component {
+    components = {
+      icon1: Icon,
+      icon2: Icon,
+      icon3: Icon,
+    }
+  }
+</script>

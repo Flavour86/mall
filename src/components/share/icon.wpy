@@ -1,0 +1,30 @@
+<style lang="less" src="./iconfont.less" />
+<template>
+  <text class="iconfont {{iconClass}}" />
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Icon extends wepy.component {
+    props = {
+      type: {
+        type: [String]
+      },
+      className: {
+        type: [String]
+      }
+    }
+
+    data = {
+      iconClass: ''
+    }
+
+    onLoad() {
+      this.iconClass = `icon-${this.type}`
+      if (this.className && this.className.length) {
+        this.iconClass += ` ${this.className}`
+      }
+    }
+  }
+</script>
