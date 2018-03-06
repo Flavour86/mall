@@ -1,4 +1,5 @@
 import wepy from 'wepy'
+import i18n from '@/i18n'
 
 export default class testMixin extends wepy.mixin {
   data = {
@@ -7,15 +8,28 @@ export default class testMixin extends wepy.mixin {
   methods = {
     tap () {
       this.mixin = 'mixin data was changed'
-      console.log('mixin method tap')
     }
   }
 
   onShow() {
-    console.log('mixin onShow')
+    // console.log('mixin onShow', this.$parent)
   }
 
   onLoad() {
-    console.log('mixin onLoad')
+    const global = this.$parent || this.$root.$parent
+    this.loadSpaceI18N(global.globalData.language)
+  }
+
+  loadSpaceI18N (lang) {
+    const config = this.i18n
+    if (!config) return
+    i18n.init({
+      ns: config.ns,
+      load (lang) {
+        return new Promise(resolve => {
+          resolve(require(`../pages/${config.ns}/i18n/${lang}.js`).default)
+        })
+      }
+    }).loadResource(lang)
   }
 }

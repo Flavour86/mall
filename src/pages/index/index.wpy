@@ -5,18 +5,31 @@
   <header />
   <view class="container">
     <button @tap="viewTap">跳往example页面</button>
+    <button>{{ message }}</button>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
   import Header from '@/components/common/header'
+  import testMixin from '../../mixins/test'
+  import i18n from '@/i18n'
 
   export default class Index extends wepy.page {
     components = {
       header: Header
     }
-
+    data = {
+      i18n: {
+        ns: 'index'
+      }
+    }
+    mixins = [testMixin]
+    computed = {
+      message () {
+        return i18n.translate('aa', 'index')
+      }
+    }
     methods = {
       viewTap() {
         wepy.navigateTo({

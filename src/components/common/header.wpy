@@ -3,8 +3,8 @@
   <view class="page-header">
     <text class="page-title">Yoho!Buy</text>
     <icon1 type="transfer" />
-    <icon2 type="menu" />
-    <icon3 type="search" />
+    <icon2 type="menu" @tap.user="clickMenu" />
+    <icon3 type="search" @tap.user="clickSearch" />
   </view>
 </template>
 <script>
@@ -16,6 +16,19 @@
       icon1: Icon,
       icon2: Icon,
       icon3: Icon,
+    }
+
+    methods = {
+      clickMenu (e) {
+        console.log(e, 'clickMenu')
+      },
+      clickSearch (e) {
+        console.log('clickSearch', e)
+      }
+    }
+
+    onLoad() {
+//      console.log('onShow', this.$root.$parent.loadCommonI18N)
     }
   }
 </script>

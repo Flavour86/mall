@@ -1,6 +1,6 @@
 <style lang="less" src="./iconfont.less" />
 <template>
-  <text class="iconfont {{iconClass}}" />
+  <text class="iconfont {{iconClass}}" @tap="iconTap" />
 </template>
 
 <script>
@@ -18,6 +18,12 @@
 
     data = {
       iconClass: ''
+    }
+
+    methods = {
+      iconTap (e) {
+        this.$emit('tap', e)
+      }
     }
 
     onLoad() {

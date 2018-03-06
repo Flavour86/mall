@@ -12,13 +12,11 @@
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
-
+import i18n from '@/i18n'
 import { setStore } from 'wepy-redux'
 import configStore from './store'
-
 const store = configStore()
 setStore(store)
-
 export default class extends wepy.app {
   config = {
     pages: [
@@ -34,7 +32,8 @@ export default class extends wepy.app {
   }
 
   globalData = {
-    userInfo: null
+    userInfo: null,
+    language: 'zh'
   }
 
   constructor () {
@@ -44,6 +43,18 @@ export default class extends wepy.app {
 
   onLaunch() {
     this.testAsync()
+    this.loadCommonI18N(this.globalData.language)
+  }
+
+  loadCommonI18N (lang) {
+    return i18n.init({
+      ns: 'common',
+      load (lang) {
+        return new Promise(resolve => {
+          resolve(require(`./i18n/locales/${lang}.js`).default)
+        })
+      }
+    }).loadResource(lang)
   }
 
   sleep (s) {
