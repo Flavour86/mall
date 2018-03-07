@@ -1,7 +1,7 @@
 <style lang="less" src="./header.less" />
 <template>
   <view class="page-header">
-    <text class="page-title">Yoho!Buy</text>
+    <text class="page-title">{{ title }}</text>
     <icon1 type="transfer" />
     <icon2 type="menu" @tap.user="clickMenu" />
     <icon3 type="search" @tap.user="clickSearch" />
@@ -10,14 +10,23 @@
 <script>
   import wepy from 'wepy'
   import Icon from '../share/icon'
+  import testMixin from '../../mixins/test'
+  import i18n from '@/i18n'
 
   export default class Header extends wepy.component {
+    data = {
+    }
     components = {
       icon1: Icon,
       icon2: Icon,
       icon3: Icon,
     }
-
+    mixins = [testMixin]
+    computed = {
+      title () {
+        return this.$t('title')
+      }
+    }
     methods = {
       clickMenu (e) {
         console.log(e, 'clickMenu')
@@ -27,8 +36,13 @@
       }
     }
 
+    events = {
+      'language-changed': (...args) => {
+        this.computed.title.apply(this)
+      }
+    }
+
     onLoad() {
-//      console.log('onShow', this.$root.$parent.loadCommonI18N)
     }
   }
 </script>

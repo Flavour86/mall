@@ -5,7 +5,7 @@
   <header />
   <view class="container">
     <button @tap="viewTap">跳往example页面</button>
-    <button>{{ message }}</button>
+    <button @tap="changeLanguage">{{ message }}</button>
   </view>
 </template>
 
@@ -27,13 +27,21 @@
     mixins = [testMixin]
     computed = {
       message () {
-        return i18n.translate('aa', 'index')
+        return this.$t('aa', 'index')
       }
     }
     methods = {
       viewTap() {
         wepy.navigateTo({
           url: '../example/example'
+        })
+      },
+
+      changeLanguage() {
+        this.$root.$parent.globalData.language = 'en'
+        console.log(this.$root.$parent.globalData)
+        i18n.changeLanguage('en').then(() => {
+          this.$broadcast('language-changed')
         })
       }
     }

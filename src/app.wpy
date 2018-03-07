@@ -47,8 +47,13 @@ export default class extends wepy.app {
   }
 
   loadCommonI18N (lang) {
+    const locales = {
+      'zh': `./locales/zh.js`,
+      'en': `./locales/en.js`
+    }
     return i18n.init({
       ns: 'common',
+      locales: locales,
       load (lang) {
         return new Promise(resolve => {
           resolve(require(`./i18n/locales/${lang}.js`).default)

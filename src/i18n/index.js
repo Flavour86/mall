@@ -2,10 +2,15 @@ import format from 'string-template'
 
 export default {
   _config: null,
+  _cacheConfig: {},
   _resource: {},
 
   init (config) {
     this._config = config
+    this._cacheConfig = {
+      ...this._cacheConfig,
+      [config.ns]: config
+    }
     return this
   },
 
@@ -27,7 +32,6 @@ export default {
 
   setResource (ns, res) {
     this._resource[ns] = res
-    console.log(this._resource, ns, res)
   },
 
   extractFromKey (key) {
@@ -46,6 +50,16 @@ export default {
     keys = key.split(keySeparator)
 
     return { keys, namespace }
+  },
+
+  changeLanguage (lang) {
+    return new Promise(resolved => {
+      const keys = Object.keys(this._cacheConfig)
+      keys.forEach(key => {
+        this._resource[key] = require(this._cacheConfig[key].locales[lang]).default
+      })
+      resolved()
+    })
   },
 
   translate (key, ...args) {

@@ -9,6 +9,10 @@ export default class testMixin extends wepy.mixin {
     tap () {
       this.mixin = 'mixin data was changed'
     }
+
+  }
+  $t (...args) {
+    return i18n.translate(...args)
   }
 
   onShow() {
@@ -16,18 +20,22 @@ export default class testMixin extends wepy.mixin {
   }
 
   onLoad() {
-    const global = this.$parent || this.$root.$parent
+    const global = this.$root.$parent
     this.loadSpaceI18N(global.globalData.language)
   }
-
   loadSpaceI18N (lang) {
     const config = this.i18n
     if (!config) return
+    config.locales = {
+      'zh': `../pages/${config.ns}/i18n/zh.js`,
+      'en': `../pages/${config.ns}/i18n/en.js`
+    }
     i18n.init({
       ns: config.ns,
+      locales: config.locales,
       load (lang) {
         return new Promise(resolve => {
-          resolve(require(`../pages/${config.ns}/i18n/${lang}.js`).default)
+          resolve(require(config.locales[lang]).default)
         })
       }
     }).loadResource(lang)

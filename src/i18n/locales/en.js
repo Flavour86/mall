@@ -1,3 +1,4 @@
 export default {
-  hello: 'hello'
+  hello: 'hello',
+  title: 'yoho!'
 }
