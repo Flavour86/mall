@@ -6,6 +6,8 @@
   <view class="container">
     <button @tap="viewTap">跳往example页面</button>
     <button @tap="changeLanguage">{{ message }}</button>
+    <button @tap="getCourse"> {{ testRequest }}</button>
+    <view>{{ courseList }}</view>
   </view>
 </template>
 
@@ -14,7 +16,14 @@
   import Header from '@/components/common/header'
   import testMixin from '../../mixins/test'
   import i18n from '@/i18n'
+  import { connect } from 'wepy-redux'
+  import * as actions from './redux/actions'
 
+  @connect({
+    courseList: state => state.courseList
+  }, {
+    ...actions
+  })
   export default class Index extends wepy.page {
     components = {
       header: Header
@@ -28,6 +37,9 @@
     computed = {
       message () {
         return this.$t('aa', 'index')
+      },
+      testRequest () {
+        return this.$t('testRequest', 'index')
       }
     }
     methods = {

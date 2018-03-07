@@ -3,6 +3,7 @@ import format from 'string-template'
 export default {
   _config: null,
   _cacheConfig: {},
+  language: 'zh',
   _resource: {},
 
   init (config) {
@@ -18,6 +19,7 @@ export default {
     const { _config } = this
     return _config.load(lang)
       .then(res => {
+        this.language = lang
         this.setResource(_config.ns, res)
         return res
       })
@@ -53,7 +55,8 @@ export default {
   },
 
   changeLanguage (lang) {
-    return new Promise(resolved => {
+    this.language = lang
+    return new Promise((resolved) => {
       const keys = Object.keys(this._cacheConfig)
       keys.forEach(key => {
         this._resource[key] = require(this._cacheConfig[key].locales[lang]).default

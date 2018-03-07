@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import counter from './counter'
+import * as counter from '@/pages/example/redux/reducer'
 
 export default combineReducers({
-  counter
+  ...counter
 })

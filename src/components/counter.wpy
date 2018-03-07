@@ -29,8 +29,8 @@
 <script>
   import wepy from 'wepy'
   import { connect } from 'wepy-redux'
-  import { INCREMENT, DECREMENT } from '../store/types/counter'
-  import { asyncInc } from '../store/actions'
+  import { INCREMENT, DECREMENT } from '../pages/example/redux/action-type'
+  import { asyncInc } from '../pages/example/redux/actions'
 
   @connect({
     stateNum: state => state.counter.num,

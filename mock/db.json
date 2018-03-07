@@ -1,0 +1,169 @@
+{
+  "course": {
+    "total": 8,
+    "items": [
+      {
+        "album_id": 291160,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "默认相册",
+        "image": {
+          "src": "dentry://b05c7ae1-5908-4888-a880-85fc8da0ba93",
+          "mime": "image/png",
+          "width": 0,
+          "height": 0,
+          "size": 128996,
+          "md5": "941d4f8a6d829183e340dda36f92d648"
+        },
+        "description": "",
+        "category": 1,
+        "template_album_id": 1,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2017-12-19T19:25:26.650+0800",
+        "user_id": "2082706484"
+      },
+      {
+        "album_id": 300457,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "了就看见",
+        "image": {
+          "src": "path:///preproduction_content_im_album/org_album/0/platform_0.jpg",
+          "width": 0,
+          "height": 0,
+          "size": 0
+        },
+        "description": "",
+        "category": 0,
+        "template_album_id": 0,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2018-02-25T11:55:18.469+0800",
+        "user_id": "2082706484"
+      },
+      {
+        "album_id": 300456,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "品控",
+        "image": {
+          "src": "path:///preproduction_content_im_album/org_album/0/platform_0.jpg",
+          "width": 0,
+          "height": 0,
+          "size": 0
+        },
+        "description": "",
+        "category": 0,
+        "template_album_id": 0,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2018-02-25T11:55:13.871+0800",
+        "user_id": "2082706484"
+      },
+      {
+        "album_id": 300455,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "手动阀环境手动阀好",
+        "image": {
+          "src": "path:///preproduction_content_im_album/org_album/0/platform_0.jpg",
+          "width": 0,
+          "height": 0,
+          "size": 0
+        },
+        "description": "",
+        "category": 0,
+        "template_album_id": 0,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2018-02-25T11:55:03.204+0800",
+        "user_id": "2082706484"
+      },
+      {
+        "album_id": 296607,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "水电费水电费",
+        "image": {
+          "src": "dentry://69a93f47-50da-4b9a-b152-04b7f16838a0",
+          "mime": "image/png",
+          "width": 0,
+          "height": 0,
+          "size": 401784,
+          "md5": "4b71d896caf4b4e58f90c1ff95387dea"
+        },
+        "description": "说的",
+        "category": 0,
+        "template_album_id": 0,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2018-01-18T15:10:18.910+0800",
+        "user_id": "2082706484"
+      },
+      {
+        "album_id": 291176,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "qqqqq",
+        "image": {
+          "src": "dentry://f738b6ee-690b-4c6a-9f85-4b65b53fc2ea",
+          "mime": "image/png",
+          "width": 0,
+          "height": 0,
+          "size": 181025,
+          "md5": "3d63589b351da8ec7fa598ab6c5b1b6c"
+        },
+        "description": "",
+        "category": 0,
+        "template_album_id": 0,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2017-12-19T21:37:31.045+0800",
+        "user_id": "2082706484"
+      },
+      {
+        "album_id": 291175,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "sdss",
+        "image": {
+          "src": "dentry://943d43f2-fd1d-4765-8cb9-5ec88b5ba5ce",
+          "mime": "image/png",
+          "width": 0,
+          "height": 0,
+          "size": 181025,
+          "md5": "3d63589b351da8ec7fa598ab6c5b1b6c"
+        },
+        "description": "",
+        "category": 0,
+        "template_album_id": 0,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2017-12-19T21:35:23.331+0800",
+        "user_id": "2082706484"
+      },
+      {
+        "album_id": 291163,
+        "principal_id": "u:2082706484",
+        "catalog_id": 0,
+        "title": "的手动阀",
+        "image": {
+          "src": "dentry://7b7b1f16-daa6-4747-9ecb-4320ea2c246a",
+          "mime": "image/png",
+          "width": 0,
+          "height": 0,
+          "size": 1840577,
+          "md5": "70ad1869bcc76a6742c1954b67b1524d"
+        },
+        "description": "",
+        "category": 0,
+        "template_album_id": 0,
+        "pilot_album_id": 0,
+        "sort": 0,
+        "create_time": "2017-12-19T19:27:19.701+0800",
+        "user_id": "2082706484"
+      }
+    ]
+  }
+}
