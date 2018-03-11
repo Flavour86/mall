@@ -75,6 +75,8 @@ export default {
     const formatKey = keys.reduce((res, key) => {
       if (res && typeof res === 'object' && res.hasOwnProperty(key)) {
         return res[key]
+      } else if (this._resource['common'] && this._resource['common'][key]) {
+        return this._resource['common'][key]
       }
       return key
     }, this._resource[namespace])

@@ -23,6 +23,7 @@
     "redux-promise": "^0.5.3",
     "wepy": "^1.7.1",
     "wepy-async-function": "^1.4.4",
+    "wepy-com-swiper": "1.0.0",
     "wepy-com-toast": "^1.0.2",
     "wepy-redux": "^1.5.3"
   },

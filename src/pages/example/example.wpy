@@ -1,5 +1,12 @@
 <style lang="less" src="./example.less" />
 <template>
+  <header>
+    <text class="page-title" slot="title">{{ title }}</text>
+    <icon1 type="transfer" class="right" />
+    <icon2 type="back" class="left1" @tap.user="back" />
+    <icon3 type="search" class="left2" @tap.user="clickSearch" />
+    <button bindtap="back">1111</button>
+  </header>
   <view class="container">
     <view class="userinfo" @tap="handleViewTap">
       <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"/>
@@ -74,6 +81,9 @@
   import Group from '../../components/group'
   import Toast from 'wepy-com-toast'
   import testMixin from '../../mixins/test'
+  import Header from '@/components/common/header'
+  import Icon from '@/components/share/icon'
+  import i18n from '@/i18n'
 
   console.log('moduleA ignored: ', moduleA) // => moduleA ignored: {}
 
@@ -94,6 +104,10 @@
       navigationBarTitleText: 'test111'
     }
     components = {
+      header: Header,
+      icon1: Icon,
+      icon2: Icon,
+      icon3: Icon,
       panel: Panel,
       counter1: Counter,
       counter2: Counter,
@@ -105,6 +119,9 @@
     mixins = [testMixin]
 
     data = {
+      i18n: {
+        ns: 'example'
+      },
       mynum: 20,
       userInfo: {
         nickName: '加载中...'
@@ -162,10 +179,16 @@
     computed = {
       now () {
         return +new Date()
+      },
+      title () {
+        return this.$t('title')
       }
     }
 
     methods = {
+      back() {
+        wx.navigateBack()
+      },
       plus () {
         this.mynum++
       },

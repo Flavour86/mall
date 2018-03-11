@@ -2,8 +2,14 @@
 
 </style>
 <template>
-  <header />
+  <header>
+    <text class="page-title" slot="title">{{ title }}</text>
+    <icon1 type="transfer" class="right" />
+    <icon2 type="menu" class="left1" @tap.user="clickMenu" />
+    <icon3 type="search" class="left2" @tap.user="clickSearch" />
+  </header>
   <view class="container">
+    <swiper :options="swipes" />
     <button @tap="viewTap">跳往example页面</button>
     <button @tap="changeLanguage">{{ message }}</button>
     <button @tap="getCourse"> {{ testRequest }}</button>
@@ -14,8 +20,9 @@
 <script>
   import wepy from 'wepy'
   import Header from '@/components/common/header'
+  import Icon from '@/components/share/icon'
   import testMixin from '../../mixins/test'
-  import i18n from '@/i18n'
+  import Swiper from '@/components/share/swiper'
   import { connect } from 'wepy-redux'
   import * as actions from './redux/actions'
 
@@ -26,9 +33,22 @@
   })
   export default class Index extends wepy.page {
     components = {
-      header: Header
+      header: Header,
+      icon1: Icon,
+      icon2: Icon,
+      icon3: Icon,
+      swiper: Swiper
     }
     data = {
+      swipes: {
+        slideLength: 4,
+        datas: [
+          {url: '../../theme/images/10.jpg', title: '轮播1', key: 1},
+          {url: '../../theme/images/111.jpg', title: '轮播2', key: 2},
+          {url: '../../theme/images/111.jpg', title: '轮播3', key: 3},
+          {url: '../../theme/images/111.jpg', title: '轮播4', key: 4}
+        ]
+      },
       i18n: {
         ns: 'index'
       }
@@ -40,6 +60,9 @@
       },
       testRequest () {
         return this.$t('testRequest', 'index')
+      },
+      title: () => {
+        return this.$t('title')
       }
     }
     methods = {
@@ -48,14 +71,25 @@
           url: '../example/example'
         })
       },
-
-      changeLanguage() {
-        this.$root.$parent.globalData.language = 'en'
-        console.log(this.$root.$parent.globalData)
-        i18n.changeLanguage('en').then(() => {
+      clickMenu (e) {
+        console.log(e, 'clickMenu')
+      },
+      clickSearch (e) {
+        console.log('clickSearch', e)
+      },
+      changeLanguage () {
+        const lang = this.$root.$parent.globalData.language === 'zh' ? 'en' : 'zh'
+        this.$root.$parent.changeLanguage(lang, () => {
           this.$broadcast('language-changed')
         })
       }
     }
+
+//    events = {
+//      'language-changed': (...args) => {
+//        console.log(this.computed)
+//        this.computed.title.apply(this)
+//      }
+//    }
   }
 </script>

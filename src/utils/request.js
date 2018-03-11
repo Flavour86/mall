@@ -21,14 +21,14 @@ const addParam = (url, params) => {
  * @class Request
  */
 export default class Request {
-  constructor (baseUri = [], cache = false, setAuth = true) {
+  constructor (baseUri = [], cache = false) {
     /**
      * @abstract
      * @type {Array}
      */
     this.baseUri = baseUri
     this.cache = cache
-    this.setAuth = setAuth
+    // this.setAuth = setAuth
   }
 
   /**

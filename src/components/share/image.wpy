@@ -1,0 +1,29 @@
+<template>
+  <image src="{{dSrc}}" mode="{{mode}}" binderror="onError" />
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class ImageX extends wepy.component {
+    props = {
+      dSrc: {
+        type: [String]
+      },
+      errorSrc: {
+        type: [String],
+        default: '../../theme/images/default-certificate.png'
+      },
+      mode: {
+        type: [String],
+        default: 'aspectFit'
+      }
+    }
+
+    methods = {
+      onError() {
+        this.src = this.errorSrc
+      }
+    }
+  }
+</script>
