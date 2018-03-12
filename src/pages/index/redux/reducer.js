@@ -14,3 +14,10 @@ export const courseList = handleActions({
   total: 0,
   items: []
 })
+
+export const categorys = handleActions({
+  [types.GET_CATEGORY] (state, action) {
+    const data = action.payload.data
+    return [...data]
+  }
+}, [])

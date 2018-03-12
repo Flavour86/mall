@@ -1,0 +1,45 @@
+<style lang="less" src="./menu.less" />
+<template>
+  <view class="nav-box">
+    <view class="nav-list clearfix">
+      <repeat for="{{menuList}}" index="index" key="index" item="list">
+        <view class="nav-item">
+          <imageX :dSrc="list.icon" mode="aspectFill" />
+          <text class="category-name">{{list.name}}</text>
+        </view>
+      </repeat>
+      <view class="nav-item">
+        <imageX :dSrc="list.icon" mode="aspectFill" />
+        <text class="category-name">{{list.name}}</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import { connect } from 'wepy-redux'
+  import ImageX from '@/components/share/image'
+  import * as actions from '../redux/actions'
+  import {ENDSIZE} from '../constants'
+
+  @connect({
+    menuList: state => state.categorys.slice(0, ENDSIZE)
+  }, {
+    ...actions
+  })
+  export default class Menu extends wepy.component {
+    components = {
+      imageX: ImageX
+    }
+
+    data = {
+    }
+    methods = {
+    }
+
+    onLoad () {
+      this.methods.getCategory()
+    }
+  }
+</script>

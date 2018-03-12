@@ -10,10 +10,7 @@
   </header>
   <view class="container">
     <swiper :options="swipes" />
-    <button @tap="viewTap">跳往example页面</button>
-    <button @tap="changeLanguage">{{ message }}</button>
-    <button @tap="getCourse"> {{ testRequest }}</button>
-    <view>{{ courseList }}</view>
+    <menu />
   </view>
 </template>
 
@@ -23,6 +20,7 @@
   import Icon from '@/components/share/icon'
   import testMixin from '../../mixins/test'
   import Swiper from '@/components/share/swiper'
+  import Menu from './components/menu'
   import { connect } from 'wepy-redux'
   import * as actions from './redux/actions'
 
@@ -37,10 +35,12 @@
       icon1: Icon,
       icon2: Icon,
       icon3: Icon,
-      swiper: Swiper
+      swiper: Swiper,
+      menu: Menu
     }
     data = {
       swipes: {
+        autoplay: 3000,
         slideLength: 4,
         datas: [
           {url: '../../theme/images/10.jpg', title: '轮播1', key: 0},

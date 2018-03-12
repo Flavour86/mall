@@ -81,19 +81,28 @@ export default class Request {
       options.headers['Accept-Language'] = i18n.language
     }
 
-    return wepy.request({
-      url: url,
-      dataType: 'json',
-      // responseType: 'text',
-      // 服务端 bigint 处理
-      // transformResponse: [function (responseText) {
-      //   let data = responseText.replace(PROTECTION_PREFIX, '')
-      //   try {
-      //     data = json.parse(data)
-      //   } catch (e) { /* Ignore */ }
-      //   return data
-      // }],
-      ...other
+    return new Promise((resolved, reject) => {
+      wepy.request({
+        url: url,
+        dataType: 'json',
+        // responseType: 'text',
+        // 服务端 bigint 处理
+        // transformResponse: [function (responseText) {
+        //   let data = responseText.replace(PROTECTION_PREFIX, '')
+        //   try {
+        //     data = json.parse(data)
+        //   } catch (e) { /* Ignore */ }
+        //   return data
+        // }],
+        ...other,
+        success: res => {
+          const {data} = res
+          resolved(data)
+        },
+        fail: err => {
+          reject(err)
+        }
+      })
     })
   }
 }

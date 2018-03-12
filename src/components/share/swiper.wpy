@@ -35,6 +35,7 @@
       background-color: rgba(150, 150, 150, .5);
       margin: 0 6rpx;
       vertical-align: top;
+      box-shadow: 0 0 2rpx 3rpx rgba(0, 0, 0, .2);
 
       &.active {
         width: 24rpx;
@@ -48,7 +49,7 @@
     <we-swipe :option="swipeProps">
       <repeat for="{{swipe.datas}}" index="index" item="data" key="index">
         <view class="we-slide">
-          <imageX :dSrc="data.url" :dAlt="data.title" mode="aspectFill" />
+          <imageX :dSrc="data.url" mode="aspectFill" />
         </view>
       </repeat>
     </we-swipe>
