@@ -18,7 +18,7 @@
   import wepy from 'wepy'
   import Header from '@/components/common/header'
   import Icon from '@/components/share/icon'
-  import testMixin from '../../mixins/test'
+  import i18nMixin from '../../mixins/i18n'
   import Swiper from '@/components/share/swiper'
   import Menu from './components/menu'
   import { connect } from 'wepy-redux'
@@ -53,7 +53,7 @@
         ns: 'index'
       }
     }
-    mixins = [testMixin]
+    mixins = [i18nMixin]
     computed = {
       message () {
         return this.$t('aa', 'index')

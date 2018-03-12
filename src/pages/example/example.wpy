@@ -80,7 +80,7 @@
   import moduleA from 'module-a' // aliasFields ignore module example
   import Group from '../../components/group'
   import Toast from 'wepy-com-toast'
-  import testMixin from '../../mixins/test'
+  import i18nMixin from '../../mixins/i18n'
   import Header from '@/components/common/header'
   import Icon from '@/components/share/icon'
   import i18n from '@/i18n'
@@ -116,7 +116,7 @@
       toast: Toast
     }
 
-    mixins = [testMixin]
+    mixins = [i18nMixin]
 
     data = {
       i18n: {

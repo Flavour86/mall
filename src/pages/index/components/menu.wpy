@@ -9,8 +9,8 @@
         </view>
       </repeat>
       <view class="nav-item">
-        <imageX :dSrc="list.icon" mode="aspectFill" />
-        <text class="category-name">{{list.name}}</text>
+        <icon type="category" class="category" />
+        <text class="category-name">{{allCategory}}</text>
       </view>
     </view>
   </view>
@@ -20,8 +20,11 @@
   import wepy from 'wepy'
   import { connect } from 'wepy-redux'
   import ImageX from '@/components/share/image'
+  import Icon from '@/components/share/icon'
   import * as actions from '../redux/actions'
   import {ENDSIZE} from '../constants'
+  import i18n from '@/i18n'
+  import i18nMixin from '@/mixins/i18n'
 
   @connect({
     menuList: state => state.categorys.slice(0, ENDSIZE)
@@ -30,12 +33,22 @@
   })
   export default class Menu extends wepy.component {
     components = {
-      imageX: ImageX
+      imageX: ImageX,
+      icon: Icon
     }
 
     data = {
+      i18n: {
+        ns: 'index'
+      }
     }
+    mixins = [i18nMixin]
     methods = {
+    }
+    computed = {
+      allCategory () {
+        return this.$t('allCategory', 'index')
+      }
     }
 
     onLoad () {
