@@ -65,7 +65,6 @@
   import weSwiper from 'wepy-com-swiper'
   import ImageX from '@/components/share/image'
   const noop = () => {}
-//  const DEFAULT =
   export default class Swiper extends wepy.component {
     components = {
       'we-swipe': weSwiper,
@@ -84,7 +83,7 @@
       this.swipe = Object.assign({}, this.swipe, this.options)
     }
     data = {
-      index: 0,
+      active: 0,
       swipe: {
         direction: 'horizontal',
         slideLength: 3,
@@ -108,8 +107,8 @@
          */
         onTransitionEnd: (swiper) => {
           const {activeIndex} = swiper
-          this.index = activeIndex
-          this.computed.activeIndex.apply(this)
+          this.active = activeIndex
+          this.$apply()
         }
       }
     }
@@ -119,9 +118,10 @@
         return Object.assign({}, this.swipe, this.options)
       },
       activeIndex () {
-        console.log(this.index, 'computed')
-        return this.index + 1
+        return this.active
       }
+    }
+    methods = {
     }
   }
 </script>

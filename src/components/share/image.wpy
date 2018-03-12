@@ -1,5 +1,5 @@
 <template>
-  <image src="{{dSrc}}" mode="{{mode}}" binderror="onError" />
+  <image src="{{dSrc}}" mode="{{mode}}" binderror="onError" @tap="tap" />
 </template>
 
 <script>
@@ -23,6 +23,9 @@
     methods = {
       onError() {
         this.src = this.errorSrc
+      },
+      tap (e) {
+        this.$emit('tap', e)
       }
     }
   }

@@ -43,10 +43,10 @@
       swipes: {
         slideLength: 4,
         datas: [
-          {url: '../../theme/images/10.jpg', title: '轮播1', key: 1},
-          {url: '../../theme/images/111.jpg', title: '轮播2', key: 2},
-          {url: '../../theme/images/111.jpg', title: '轮播3', key: 3},
-          {url: '../../theme/images/111.jpg', title: '轮播4', key: 4}
+          {url: '../../theme/images/10.jpg', title: '轮播1', key: 0},
+          {url: '../../theme/images/111.jpg', title: '轮播2', key: 1},
+          {url: '../../theme/images/111.jpg', title: '轮播3', key: 2},
+          {url: '../../theme/images/111.jpg', title: '轮播4', key: 3}
         ]
       },
       i18n: {
