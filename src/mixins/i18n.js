@@ -15,16 +15,22 @@ export default class testMixin extends wepy.mixin {
     return i18n.translate(...args)
   }
 
-  onShow() {
-    // console.log('mixin onShow', this.$parent)
+  events = {
+    'language-loaded': () => {
+      // console.log(this.computed)
+    }
+  }
+
+  onShow () {
+    this.loadSpaceI18N()
   }
 
   onLoad() {
-    const global = this.$root.$parent
-    this.loadSpaceI18N(global.globalData.language)
+    this.loadSpaceI18N()
   }
-  loadSpaceI18N (lang) {
+  loadSpaceI18N () {
     const config = this.i18n
+    const global = this.$root.$parent
     if (!config) return
     config.locales = {
       'zh': `../pages/${config.ns}/i18n/zh.js`,
@@ -38,6 +44,9 @@ export default class testMixin extends wepy.mixin {
           resolve(require(config.locales[lang]).default)
         })
       }
-    }).loadResource(lang)
+    }).loadResource(global.globalData.language, res => {
+      global.globalData.resource = res
+      this.$emit('language-loaded')
+    })
   }
 }

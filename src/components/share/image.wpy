@@ -1,5 +1,5 @@
 <template>
-  <image src="{{dSrc}}" mode="{{mode}}" binderror="onError" @tap="tap" />
+  <image class="{{className}}" src="{{dSrc}}" mode="{{mode}}" binderror="onError" @tap="tap" />
 </template>
 
 <script>
@@ -8,7 +8,11 @@
   export default class ImageX extends wepy.component {
     props = {
       dSrc: {
-        type: [String]
+        type: [String],
+        coerce: function (v) {
+          console.log(v, '2222333')
+          return String(v)
+        }
       },
       errorSrc: {
         type: [String],
@@ -17,12 +21,15 @@
       mode: {
         type: [String],
         default: 'aspectFit'
+      },
+      className: {
+        type: [String]
       }
     }
 
     methods = {
-      onError() {
-        this.src = this.errorSrc
+      onError () {
+        this.dSrc = this.errorSrc
       },
       tap (e) {
         this.$emit('tap', e)

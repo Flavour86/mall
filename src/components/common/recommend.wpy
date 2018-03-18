@@ -1,0 +1,43 @@
+<style lang="less" src="./recommend.less" />
+
+<template>
+  <view class="recommend">
+    <imageX :dSrc.sync="picUrl" mode="aspectFill" />
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import ImageX from '@/components/share/image'
+  import { connect } from 'wepy-redux'
+
+  @connect({
+    recommend: state => state.recommend
+  })
+  export default class Recommend extends wepy.component {
+    components = {
+      imageX: ImageX
+    }
+    props = {
+      filterKey: {
+        type: [String]
+      },
+      value: {
+        type: [String, Number]
+      }
+    }
+
+    data = {
+      picUrl: ''
+    }
+
+    computed = {
+      current () {
+        const data = this.computed.recommend().filter(item => item[this.filterKey] === +this.value)[0]
+        if (data) {
+          this.picUrl = data.picUrl
+        }
+      }
+    }
+  }
+</script>

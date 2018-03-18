@@ -4,7 +4,7 @@
     <view class="nav-list clearfix">
       <repeat for="{{menuList}}" index="index" key="index" item="list">
         <view class="nav-item">
-          <imageX :dSrc="list.icon" mode="aspectFill" />
+          <imageX :dSrc="list.icon" mode="aspectFill" className="item1-2" />
           <text class="category-name">{{list.name}}</text>
         </view>
       </repeat>
@@ -23,7 +23,6 @@
   import Icon from '@/components/share/icon'
   import * as actions from '../redux/actions'
   import {ENDSIZE} from '../constants'
-  import i18n from '@/i18n'
   import i18nMixin from '@/mixins/i18n'
 
   @connect({

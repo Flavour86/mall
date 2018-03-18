@@ -3,5 +3,5 @@ import category from './category'
 
 export default {
   course,
-  category
+  ...category
 }

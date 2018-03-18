@@ -1,0 +1,58 @@
+<style lang="less" src="./hot.less" />
+
+<template>
+  <panel>
+    <view slot="title" class="h2-tit">{{title}}</view>
+    <view class="cate-list clearfix">
+      <block wx:for-items="{{hotCategory}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+        <view class="item-style1">
+          <image src="{{item.icon}}" mode="aspectFill" />
+          <text>{{item.name}}</text>
+        </view>
+      </block>
+    </view>
+  </panel>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Panel from '@/components/common/panel'
+  import { connect } from 'wepy-redux'
+  import i18nMixin from '@/mixins/i18n'
+  import ImageX from '@/components/share/image'
+
+  @connect({
+    categorys: state => state.categorys
+  })
+  export default class Hot extends wepy.component {
+    components = {
+      panel: Panel,
+      imageX: ImageX
+    }
+
+    data = {
+      i18n: {
+        ns: 'index'
+      },
+      hotTitle: ''
+    }
+    props = {
+      filterKey: {
+        type: [String]
+      },
+      value: {
+        type: [String, Number]
+      }
+    }
+    mixins = [i18nMixin]
+    computed = {
+      title () {
+        return this.$t('hotCategory', 'index')
+      },
+      hotCategory () {
+        const categorys = this.computed.categorys().filter(item => item[this.filterKey] === +this.value)
+        return categorys
+      }
+    }
+  }
+</script>

@@ -3,7 +3,7 @@
 </style>
 <template>
   <header>
-    <text class="page-title" slot="title">{{ title }}</text>
+    <text class="page-title" slot="title" @tap="viewTap">{{ title }}</text>
     <icon1 type="transfer" class="right" />
     <icon2 type="menu" class="left1" @tap.user="clickMenu" />
     <icon3 type="search" class="left2" @tap.user="clickSearch" />
@@ -11,6 +11,9 @@
   <view class="container">
     <swiper :options="swipes" />
     <menu />
+    <recommend1 filterKey="businessId" value="101"/>
+    <recommend2 filterKey="businessId" value="102"/>
+    <hot filterKey="pid" value="8724" />
   </view>
 </template>
 
@@ -18,9 +21,11 @@
   import wepy from 'wepy'
   import Header from '@/components/common/header'
   import Icon from '@/components/share/icon'
-  import i18nMixin from '../../mixins/i18n'
+  import i18nMixin from '@/mixins/i18n'
   import Swiper from '@/components/share/swiper'
   import Menu from './components/menu'
+  import Recommend from '@/components/common/recommend'
+  import Hot from './components/hot'
   import { connect } from 'wepy-redux'
   import * as actions from './redux/actions'
 
@@ -36,11 +41,17 @@
       icon2: Icon,
       icon3: Icon,
       swiper: Swiper,
-      menu: Menu
+      menu: Menu,
+      recommend1: Recommend,
+      recommend2: Recommend,
+      hot: Hot
     }
     data = {
+      filterObj: {
+
+      },
       swipes: {
-        autoplay: 3000,
+        autoplay: 5000,
         slideLength: 4,
         datas: [
           {url: '../../theme/images/10.jpg', title: '轮播1', key: 0},
@@ -53,6 +64,13 @@
         ns: 'index'
       }
     }
+    onLoad () {
+      this.methods.getRecommend({
+        params: {
+          type: 'recommend'
+        }
+      })
+    }
     mixins = [i18nMixin]
     computed = {
       message () {
@@ -61,8 +79,8 @@
       testRequest () {
         return this.$t('testRequest', 'index')
       },
-      title: () => {
-        return this.$t('title')
+      title () {
+        return this.$t('indexTitle', 'index')
       }
     }
     methods = {
@@ -76,13 +94,13 @@
       },
       clickSearch (e) {
         console.log('clickSearch', e)
-      },
-      changeLanguage () {
-        const lang = this.$root.$parent.globalData.language === 'zh' ? 'en' : 'zh'
-        this.$root.$parent.changeLanguage(lang, () => {
-          this.$broadcast('language-changed')
-        })
       }
+//      changeLanguage () {
+//        const lang = this.$root.$parent.globalData.language === 'zh' ? 'en' : 'zh'
+//        this.$root.$parent.changeLanguage(lang, () => {
+//          this.$broadcast('language-changed')
+//        })
+//      }
     }
 
 //    events = {

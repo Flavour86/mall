@@ -181,13 +181,13 @@
         return +new Date()
       },
       title () {
-        return this.$t('title')
+        return this.$t('title', 'example')
       }
     }
 
     methods = {
       back() {
-        wx.navigateBack()
+        wepy.navigateBack()
       },
       plus () {
         this.mynum++

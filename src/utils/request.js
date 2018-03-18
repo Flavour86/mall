@@ -45,7 +45,7 @@ export default class Request {
   request (options) {
     options.headers = options.headers || {}
 
-    let { uri, params, replacement, ...other } = options
+    let { uri, params, replacement, success, error, ...other } = options
     let url = this.baseUri
 
     // uri: id | null | undefined
@@ -97,9 +97,11 @@ export default class Request {
         ...other,
         success: res => {
           const {data} = res
+          typeof success === 'function' && success(data)
           resolved(data)
         },
         fail: err => {
+          typeof error === 'function' && error(err)
           reject(err)
         }
       })

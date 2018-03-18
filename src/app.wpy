@@ -25,7 +25,8 @@ export default class extends wepy.app {
 
   globalData = {
     userInfo: null,
-    language: 'zh'
+    language: 'zh',
+    resource: {}
   }
 
   constructor () {
@@ -51,7 +52,9 @@ export default class extends wepy.app {
           resolve(require(`./i18n/locales/${lang}.js`).default)
         })
       }
-    }).loadResource(lang)
+    }).loadResource(lang, res => {
+      this.globalData.resource = res
+    })
   }
 
   sleep (s) {

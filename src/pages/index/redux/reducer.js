@@ -21,3 +21,10 @@ export const categorys = handleActions({
     return [...data]
   }
 }, [])
+
+export const recommend = handleActions({
+  [types.GET_RECOMMEND] (state, action) {
+    const data = action.payload.data
+    return [...data]
+  }
+}, [])
