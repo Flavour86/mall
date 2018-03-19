@@ -10,7 +10,6 @@
       dSrc: {
         type: [String],
         coerce: function (v) {
-          console.log(v, '2222333')
           return String(v)
         }
       },

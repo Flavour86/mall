@@ -79,6 +79,7 @@ export default {
       }
       return key
     }, this._resource[namespace])
+    // console.log(this._resource, namespace, formatKey, args)
     return format(formatKey, ...args)
   }
 }

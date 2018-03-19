@@ -1,5 +1,17 @@
 <style lang="less">
+  .more {
+    width: 50%;
+    padding: 0;
+    position: relative;
 
+    image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
 </style>
 <template>
   <header>
@@ -13,7 +25,22 @@
     <menu />
     <recommend1 filterKey="businessId" value="101"/>
     <recommend2 filterKey="businessId" value="102"/>
-    <hot filterKey="pid" value="8724" />
+    <hot1
+      filterKey="pid"
+      value="8724"
+      :styleType="hotStyle"
+      :title.sync="hotStyleTitle" />
+    <hot2
+      filterKey="pid"
+      value="8729"
+      :styleType="hotCards"
+      :title.sync="hotCardsTitle">
+      <view class="item-style1 more">
+        <imageX :dSrc="hotCardsMore" />
+      </view>
+    </hot2>
+    <recommend3 filterKey="businessId" value="103" />
+    <recommend4 filterKey="businessId" value="104" />
   </view>
 </template>
 
@@ -28,6 +55,8 @@
   import Hot from './components/hot'
   import { connect } from 'wepy-redux'
   import * as actions from './redux/actions'
+  import * as $C from './constants'
+  import ImageX from '@/components/share/image'
 
   @connect({
     courseList: state => state.courseList
@@ -44,12 +73,16 @@
       menu: Menu,
       recommend1: Recommend,
       recommend2: Recommend,
-      hot: Hot
+      recommend3: Recommend,
+      recommend4: Recommend,
+      hot1: Hot,
+      hot2: Hot,
+      imageX: ImageX
     }
     data = {
-      filterObj: {
-
-      },
+      hotStyle: $C.PANELTYPE.TEXT,
+      hotCards: $C.PANELTYPE.NOTEXT,
+      hotCardsMore: '../../theme/images/pai7.jpg',
       swipes: {
         autoplay: 5000,
         slideLength: 4,
@@ -73,14 +106,14 @@
     }
     mixins = [i18nMixin]
     computed = {
-      message () {
-        return this.$t('aa', 'index')
-      },
-      testRequest () {
-        return this.$t('testRequest', 'index')
-      },
       title () {
         return this.$t('indexTitle', 'index')
+      },
+      hotStyleTitle () {
+        return this.$t('hotCategory', 'index')
+      },
+      hotCardsTitle () {
+        return this.$t('hotCards', 'index')
       }
     }
     methods = {

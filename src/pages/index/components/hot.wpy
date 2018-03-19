@@ -4,12 +4,13 @@
   <panel>
     <view slot="title" class="h2-tit">{{title}}</view>
     <view class="cate-list clearfix">
-      <block wx:for-items="{{hotCategory}}" wx:for-index="index" wx:for-item="item" wx:key="index">
-        <view class="item-style1">
-          <image src="{{item.icon}}" mode="aspectFill" />
-          <text>{{item.name}}</text>
+      <repeat for="{{hotCategory}}" index="index" item="item" key="index">
+        <view class="{{isHidden ? 'item-style1 bigSize' : 'item-style1'}}">
+          <imageX :dSrc="item.icon" mode="aspectFill" />
+          <text wx:if="{{!isHidden}}">{{item.name}}</text>
         </view>
-      </block>
+      </repeat>
+      <slot></slot>
     </view>
   </panel>
 </template>
@@ -18,7 +19,8 @@
   import wepy from 'wepy'
   import Panel from '@/components/common/panel'
   import { connect } from 'wepy-redux'
-  import i18nMixin from '@/mixins/i18n'
+//  import i18nMixin from '@/mixins/i18n'
+  import * as $C from '../constants'
   import ImageX from '@/components/share/image'
 
   @connect({
@@ -42,16 +44,22 @@
       },
       value: {
         type: [String, Number]
+      },
+      styleType: {
+        type: [Number]
+      },
+      title: {
+        type: [String]
       }
     }
-    mixins = [i18nMixin]
+//    mixins = [i18nMixin]
     computed = {
-      title () {
-        return this.$t('hotCategory', 'index')
-      },
       hotCategory () {
         const categorys = this.computed.categorys().filter(item => item[this.filterKey] === +this.value)
         return categorys
+      },
+      isHidden () {
+        return this.styleType === $C.PANELTYPE.NOTEXT
       }
     }
   }

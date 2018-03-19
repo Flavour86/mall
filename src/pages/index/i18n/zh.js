@@ -3,5 +3,6 @@ export default {
   testRequest: '测试请求',
   allCategory: '全部分类',
   indexTitle: '有货',
-  hotCategory: '热门品类'
+  hotCategory: '热门品类',
+  hotCards: '热门品牌'
 }
