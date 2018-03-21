@@ -1,0 +1,39 @@
+<style lang="less" src="./scrollMore.less" />
+
+<template>
+  <panel :className="className">
+    <view slot="title" class="h2-tit-2">{{title}}</view>
+    <scroll-view class="slp-list">
+      <repeat for="{{products}}" index="index" item="item" key="index">
+        <view class="list-item">
+          <imageX :dSrc="item.pic" mode="aspectFill"/>
+          <text class="slp-name"></text>
+        </view>
+      </repeat>
+    </scroll-view>
+  </panel>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Panel from '@/components/common/panel'
+  import ImageX from '@/components/share/image'
+
+  export default class ScrollMore extends wepy.component {
+    components = {
+      panel: Panel,
+      imageX: ImageX
+    }
+    data = {
+      params: {
+        page: 1,
+        pageSize: 6
+      },
+      products: []
+    }
+
+    props = {
+
+    }
+  }
+</script>
