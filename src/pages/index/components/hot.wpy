@@ -1,7 +1,7 @@
 <style lang="less" src="./hot.less" />
 
 <template>
-  <panel>
+  <panel :className="className">
     <view slot="title" class="h2-tit">{{title}}</view>
     <view class="cate-list clearfix">
       <repeat for="{{hotCategory}}" index="index" item="item" key="index">
@@ -19,7 +19,6 @@
   import wepy from 'wepy'
   import Panel from '@/components/common/panel'
   import { connect } from 'wepy-redux'
-//  import i18nMixin from '@/mixins/i18n'
   import * as $C from '../constants'
   import ImageX from '@/components/share/image'
 
@@ -39,6 +38,13 @@
       hotTitle: ''
     }
     props = {
+      className: {
+        type: [String],
+        coerce: function (v) {
+          console.log(v, '22')
+          return v
+        }
+      },
       filterKey: {
         type: [String]
       },
@@ -52,7 +58,6 @@
         type: [String]
       }
     }
-//    mixins = [i18nMixin]
     computed = {
       hotCategory () {
         const categorys = this.computed.categorys().filter(item => item[this.filterKey] === +this.value)

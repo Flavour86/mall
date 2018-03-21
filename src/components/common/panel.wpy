@@ -14,7 +14,7 @@
   }
 </style>
 <template>
-  <view class="mt-15">
+  <view class="{{className}}">
     <slot name="title">
     </slot>
     <slot>
@@ -25,5 +25,14 @@
   import wepy from 'wepy'
 
   export default class Panel extends wepy.component {
+    props = {
+      className: {
+        type: [String],
+        coerce: function (v) {
+          console.log(v, 'Panel')
+          return v
+        }
+      }
+    }
   }
 </script>
