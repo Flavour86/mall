@@ -49,9 +49,5 @@
         return this.$t('allCategory', 'index')
       }
     }
-
-    onLoad () {
-      this.methods.getCategory()
-    }
   }
 </script>

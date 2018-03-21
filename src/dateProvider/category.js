@@ -15,7 +15,15 @@ class RecommendModel extends REST {
   }
 }
 
+class ProductListsModel extends REST {
+  constructor () {
+    super()
+    this.baseUri = ['https://api.it120.cc', $C.API_CODE, 'shop/goods/list']
+  }
+}
+
 export default {
   category: new CategoryModel(),
-  recommend: new RecommendModel()
+  recommend: new RecommendModel(),
+  products: new ProductListsModel()
 }

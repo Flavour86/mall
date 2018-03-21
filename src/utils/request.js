@@ -85,15 +85,6 @@ export default class Request {
       wepy.request({
         url: url,
         dataType: 'json',
-        // responseType: 'text',
-        // 服务端 bigint 处理
-        // transformResponse: [function (responseText) {
-        //   let data = responseText.replace(PROTECTION_PREFIX, '')
-        //   try {
-        //     data = json.parse(data)
-        //   } catch (e) { /* Ignore */ }
-        //   return data
-        // }],
         ...other,
         success: res => {
           const {data} = res

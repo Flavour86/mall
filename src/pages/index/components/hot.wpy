@@ -32,18 +32,11 @@
     }
 
     data = {
-      i18n: {
-        ns: 'index'
-      },
       hotTitle: ''
     }
     props = {
       className: {
-        type: [String],
-        coerce: function (v) {
-          console.log(v, '22')
-          return v
-        }
+        type: [String]
       },
       filterKey: {
         type: [String]

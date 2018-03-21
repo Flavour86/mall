@@ -1,0 +1,122 @@
+<style lang="less">
+  .col-box {
+    padding-bottom: 20px;
+    width:100%;
+    background-color:#fff;
+  }
+
+  .h2-tit-2 {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #444
+  }
+
+  .col-list {
+    width: 92%;
+    margin: 0 auto;
+
+    .item {
+      float: left;
+
+      &.small {
+        image {
+          height: 165rpx;
+        }
+      }
+    }
+
+    image {
+      display: block;
+      width: 95%;
+      height: 330rpx
+    }
+
+    > view + view {
+      image {
+        float: right
+      }
+    }
+
+  }
+</style>
+
+<template>
+  <panel :className="className">
+    <view slot="title" class="h2-tit-2">{{title}}</view>
+    <view class="col-list clearfix">
+      <repeat for="{{products}}" index="index" item="item" key="index">
+        <view class="{{small ? 'item small' : 'item'}}" style="width:{{width}};">
+          <imageX :dSrc="item.pic" mode="aspectFill"/>
+        </view>
+      </repeat>
+      <slot></slot>
+    </view>
+  </panel>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Panel from '@/components/common/panel'
+  import {connect} from 'wepy-redux'
+  import * as actions from '../redux/actions'
+  import ImageX from '@/components/share/image'
+
+  @connect({}, {
+    getProduct: actions.getProduct
+  })
+  export default class PicLists extends wepy.component {
+    components = {
+      panel: Panel,
+      imageX: ImageX
+    }
+
+    data = {
+      params: {
+        page: 1,
+        pageSize: 10
+      },
+      products: [],
+      width: '0'
+    }
+    props = {
+      className: {
+        type: [String],
+        coerce: function (v) {
+          return v ? 'col-box ' + v : 'col-box'
+        }
+      },
+      small: {
+        type: [Boolean],
+        default: false
+      },
+      categoryId: {
+        type: [String]
+      },
+      title: {
+        type: [String]
+      },
+      length: {
+        type: [String]
+      }
+    }
+
+    onLoad () {
+      const self = this
+      const {params, categoryId} = this
+      this.methods.getProduct({
+        params: {
+          ...params,
+          categoryId
+        },
+        success (res) {
+          const {data} = res
+          self.width = (100 / data.length) + '%'
+          self.products = data
+          self.$apply()
+        }
+      })
+    }
+  }
+</script>

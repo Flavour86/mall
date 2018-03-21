@@ -41,6 +41,16 @@
         <imageX dSrc="../../theme/images/pai7.jpg" />
       </view>
     </hot2>
+    <Pics1
+      categoryId="8725"
+      length="2"
+      className="mt-15"
+      :title.sync="matchTitle" />
+    <Pics2
+      categoryId="8730"
+      length="4"
+      :small="small"
+      :title.sync="recommendTitle" />
     <recommend3 filterKey="businessId" value="103" />
     <recommend4 filterKey="businessId" value="104" />
   </view>
@@ -53,6 +63,7 @@
   import i18nMixin from '@/mixins/i18n'
   import Swiper from '@/components/share/swiper'
   import Menu from './components/menu'
+  import PicLists from './components/piclist'
   import Recommend from '@/components/common/recommend'
   import Hot from './components/hot'
   import { connect } from 'wepy-redux'
@@ -79,12 +90,15 @@
       recommend4: Recommend,
       hot1: Hot,
       hot2: Hot,
-      imageX: ImageX
+      imageX: ImageX,
+      Pics1: PicLists,
+      Pics2: PicLists
     }
     data = {
       hotStyle: $C.PANELTYPE.TEXT,
       hotCards: $C.PANELTYPE.NOTEXT,
       hotCardsMore: '../../theme/images/pai7.jpg',
+      small: true,
       swipes: {
         autoplay: 5000,
         slideLength: 4,
@@ -100,6 +114,7 @@
       }
     }
     onLoad () {
+      this.methods.getCategory()
       this.methods.getRecommend({
         params: {
           type: 'recommend'
@@ -116,6 +131,12 @@
       },
       hotCardsTitle () {
         return this.$t('hotCards', 'index')
+      },
+      matchTitle () {
+        return this.$t('matchTitle', 'index')
+      },
+      recommendTitle () {
+        return this.$t('recommendTitle', 'index')
       }
     }
     methods = {

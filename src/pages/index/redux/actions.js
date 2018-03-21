@@ -19,3 +19,9 @@ export const getRecommend = createAction(types.GET_RECOMMEND,
     return $dateProvider.recommend.GET(options).then(res => res)
   }
 )
+
+export const getProduct = createAction(types.GET_PRODUCT,
+  options => {
+    return $dateProvider.products.GET(options).then(res => res)
+  }
+)

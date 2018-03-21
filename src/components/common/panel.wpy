@@ -1,18 +1,3 @@
-<style lang="less">
-  .h2-tit {
-    width: 92%;
-    height: 68rpx;
-    background-color: #fff;
-    border: 1px solid rgba(229, 229, 229, .8);
-    margin: 0 auto;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 68rpx;
-    color: #b0b0b0;
-    font-size: 32rpx;
-    font-weight: 400
-  }
-</style>
 <template>
   <view class="{{className}}">
     <slot name="title">
@@ -27,11 +12,7 @@
   export default class Panel extends wepy.component {
     props = {
       className: {
-        type: [String],
-        coerce: function (v) {
-          console.log(v, 'Panel')
-          return v
-        }
+        type: [String]
       }
     }
   }
