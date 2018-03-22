@@ -1,11 +1,54 @@
-<style lang="less" src="./piclist.less" />
+<style lang="less">
+  .col-box-2 {
+    padding-bottom: 0;
+  }
+  .sp-list {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 40%;
+    position: relative;
+    background-color: #f4f7f2;
+  }
+
+  .big-pic {
+    display: block;
+    width: 100%;
+  }
+
+  .list-item {
+    width: 50%;
+    float: left;
+    border: 1px solid rgba(229, 229, 229, .5);
+    border-width: 0 0 1px 1px;
+    box-sizing: border-box;
+    height: 120px;
+
+    &.first {
+      width: 40%;
+      height: 240px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border: none
+    }
+
+    image {
+      height: 100%;
+      width: 100%;
+    }
+  }
+</style>
 
 <template>
   <panel :className="className">
     <view slot="title" class="h2-tit-2">{{title}}</view>
-    <view class="col-list clearfix">
+    <image src="{{headerSrc}}" mode="aspectFill" class="big-pic"/>
+    <view class="sp-list clearfix">
       <repeat for="{{products}}" index="index" item="item" key="index">
-        <view class="{{small ? 'item small' : 'item'}}" style="width:{{width}};">
+        <view wx:if="{{index === 0}}" class="first list-item">
+          <imageX :dSrc="item.pic" mode="aspectFill"/>
+        </view>
+        <view wx:else class="list-item">
           <imageX :dSrc="item.pic" mode="aspectFill"/>
         </view>
       </repeat>
@@ -30,14 +73,14 @@
         page: 1,
         pageSize: 10
       },
-      products: [],
-      width: '0'
+      headerSrc: '',
+      products: []
     }
     props = {
       className: {
         type: [String],
         coerce: function (v) {
-          return v ? 'col-box ' + v : 'col-box'
+          return v ? 'col-box-2 ' + v : 'col-box-2'
         }
       },
       small: {
@@ -58,7 +101,7 @@
       }
     }
 
-    onLoad () {
+    onLoad() {
       const self = this
       const {params, categoryId, actionName, length} = this
       const options = {
@@ -68,7 +111,8 @@
         },
         success (res) {
           const {data} = res
-          self.products = data.slice(0, length)
+          self.products = data.slice(1, length)
+          self.headerSrc = data[0].pic
           self.width = (100 / self.products.length) + '%'
           self.$apply()
         }

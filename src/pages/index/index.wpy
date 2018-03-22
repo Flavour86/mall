@@ -45,14 +45,59 @@
       categoryId="8725"
       length="2"
       className="mt-15"
+      actionName="getProduct"
       :title.sync="matchTitle" />
     <Pics2
       categoryId="8730"
       length="4"
       :small="small"
+      actionName="getProduct"
       :title.sync="recommendTitle" />
     <recommend3 filterKey="businessId" value="103" />
     <recommend4 filterKey="businessId" value="104" />
+    <Pics3
+      categoryId="8731"
+      length="6"
+      :small="small"
+      actionName="getProduct"
+      className="mt-15"
+      :title.sync="clothTitle" />
+    <Pics4
+      categoryId="8732"
+      length="6"
+      :small="small"
+      actionName="getProduct"
+      className="mt-15"
+      :title.sync="trTitle" />
+    <Pics5
+      categoryId="8733"
+      length="6"
+      :small="small"
+      actionName="getProduct"
+      className="mt-15"
+      :title.sync="shoeTitle" />
+    <Pics6
+    categoryId="8734"
+    length="6"
+    :small="small"
+    actionName="getProduct"
+    className="mt-15"
+    :title.sync="bagTitle" />
+    <Pics7
+      categoryId="8735"
+      length="6"
+      :small="small"
+      actionName="getProduct"
+      className="mt-15"
+      :title.sync="decorationTitle" />
+    <recommend5 filterKey="businessId" value="110" />
+    <Pics8
+      categoryId="8735"
+      length="6"
+      :small="small"
+      actionName="getProduct"
+      className="mt-15"
+      :title.sync="decorationTitle" />
   </view>
 </template>
 
@@ -64,6 +109,7 @@
   import Swiper from '@/components/share/swiper'
   import Menu from './components/menu'
   import PicLists from './components/piclist'
+  import PicLists1 from './components/piclist1'
   import Recommend from '@/components/common/recommend'
   import Hot from './components/hot'
   import { connect } from 'wepy-redux'
@@ -88,11 +134,18 @@
       recommend2: Recommend,
       recommend3: Recommend,
       recommend4: Recommend,
+      recommend5: Recommend,
       hot1: Hot,
       hot2: Hot,
       imageX: ImageX,
       Pics1: PicLists,
-      Pics2: PicLists
+      Pics2: PicLists,
+      Pics3: PicLists1,
+      Pics4: PicLists1,
+      Pics5: PicLists1,
+      Pics6: PicLists1,
+      Pics7: PicLists1,
+      Pics8: PicLists1
     }
     data = {
       hotStyle: $C.PANELTYPE.TEXT,
@@ -137,6 +190,21 @@
       },
       recommendTitle () {
         return this.$t('recommendTitle', 'index')
+      },
+      clothTitle () {
+        return this.$t('clothTitle', 'index')
+      },
+      trTitle () {
+        return this.$t('trTitle', 'index')
+      },
+      shoeTitle () {
+        return this.$t('shoeTitle', 'index')
+      },
+      bagTitle () {
+        return this.$t('bagTitle', 'index')
+      },
+      decorationTitle () {
+        return this.$t('decorationTitle', 'index')
       }
     }
     methods = {

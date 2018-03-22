@@ -1,0 +1,41 @@
+.col-box {
+  padding-bottom: 20px;
+  width:100%;
+  background-color:#fff;
+}
+
+.h2-tit-2 {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #444;
+  background-color: #fff;
+}
+
+.col-list {
+  width: 92%;
+  margin: 0 auto;
+
+  .item {
+    float: left;
+
+    &.small {
+      image {
+        height: 165rpx;
+      }
+    }
+  }
+
+  image {
+    display: block;
+    width: 95%;
+    height: 330rpx
+  }
+
+  > view + view {
+    image {
+      float: right
+    }
+  }
+}
