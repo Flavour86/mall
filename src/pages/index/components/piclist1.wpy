@@ -98,26 +98,51 @@
       },
       actionName: {
         type: [String]
+      },
+      filterKey: {
+        type: [String]
+      },
+      value: {
+        type: [String, Number]
+      },
+      renderData: {
+        type: [Array]
+      }
+    }
+
+    computed = {
+      rdData() {
+        const {value, renderData, filterKey, length} = this
+        if (renderData && renderData.length) {
+          console.log(renderData, filterKey, value)
+          const products = renderData.filter(item => item[filterKey] === +value)
+          products.forEach(item => {
+            item.pic = item.icon
+          })
+          this.headerSrc = products[0].icon
+          this.products = products.slice(1, length)
+        }
       }
     }
 
     onLoad() {
       const self = this
-      const {params, categoryId, actionName, length} = this
-      const options = {
-        params: {
-          ...params,
-          categoryId
-        },
-        success (res) {
-          const {data} = res
-          self.products = data.slice(1, length)
-          self.headerSrc = data[0].pic
-          self.width = (100 / self.products.length) + '%'
-          self.$apply()
+      const {params, categoryId, actionName, length, renderData} = this
+      if (!renderData) {
+        const options = {
+          params: {
+            ...params,
+            categoryId
+          },
+          success (res) {
+            const {data} = res
+            self.products = data.slice(1, length)
+            self.headerSrc = data[0].pic
+            self.$apply()
+          }
         }
+        this.$root.methods[actionName](options)
       }
-      this.$root.methods[actionName](options)
     }
   }
 </script>

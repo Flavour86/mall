@@ -11,5 +11,6 @@ export default {
   trTitle: '经典裤装',
   shoeTitle: '时尚鞋履',
   bagTitle: '实用包类',
-  decorationTitle: '潮人配饰'
+  decorationTitle: '潮人配饰',
+  brandTitle: '新入驻品牌'
 }

@@ -92,12 +92,12 @@
       :title.sync="decorationTitle" />
     <recommend5 filterKey="businessId" value="110" />
     <Pics8
-      categoryId="8735"
       length="6"
-      :small="small"
-      actionName="getProduct"
       className="mt-15"
-      :title.sync="decorationTitle" />
+      :renderData.sync="categorys"
+      filterKey="pid"
+      value="8736"
+      :title.sync="brandTitle" />
   </view>
 </template>
 
@@ -118,7 +118,7 @@
   import ImageX from '@/components/share/image'
 
   @connect({
-    courseList: state => state.courseList
+    categorys: state => state.categorys
   }, {
     ...actions
   })
@@ -205,6 +205,9 @@
       },
       decorationTitle () {
         return this.$t('decorationTitle', 'index')
+      },
+      brandTitle () {
+        return this.$t('brandTitle', 'index')
       }
     }
     methods = {
