@@ -1,4 +1,9 @@
 <style lang="less">
+  .container {
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    margin-top: 88rpx;
+  }
   .more {
     width: 50%;
     padding: 0;
