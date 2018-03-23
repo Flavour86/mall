@@ -114,7 +114,6 @@
       rdData() {
         const {value, renderData, filterKey, length} = this
         if (renderData && renderData.length) {
-          console.log(renderData, filterKey, value)
           const products = renderData.filter(item => item[filterKey] === +value)
           products.forEach(item => {
             item.pic = item.icon

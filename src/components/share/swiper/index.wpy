@@ -45,11 +45,11 @@
   }
 </style>
 <template>
-  <view class="swipe">
-    <we-swipe :option="swipeProps">
-      <repeat for="{{swipe.datas}}" index="index" item="data" key="index">
+  <view wx:if="{{dataList.length > 0}}" class="swipe">
+    <we-swipe :option.sync="swipeProps">
+      <repeat for="{{dataList}}" index="index" item="data" key="index">
         <view class="we-slide">
-          <imageX :dSrc="data.url" mode="aspectFill" />
+          <imageX :dSrc="data.picUrl" mode="aspectFill" />
         </view>
       </repeat>
     </we-swipe>
@@ -63,7 +63,7 @@
 
 <script>
   import wepy from 'wepy'
-  import weSwiper from 'wepy-com-swiper'
+  import weSwiper from './wepy-com-swiper'
   import ImageX from '@/components/share/image'
   const noop = () => {}
   export default class Swiper extends wepy.component {
@@ -75,14 +75,16 @@
     props = {
       options: {
         type: [Object],
-        default: {
-          datas: []
-        }
+        default: {}
+      },
+      dataList: {
+        type: [Array],
+        default: []
       }
     }
-    onLoad() {
-      this.swipe = Object.assign({}, this.swipe, this.options)
-    }
+//    onLoad() {
+//      this.swipe = Object.assign({}, this.swipe, this.options)
+//    }
     data = {
       active: 0,
       swipe: {
@@ -116,7 +118,12 @@
 
     computed = {
       swipeProps () {
-        return Object.assign({}, this.swipe, this.options)
+        const {dataList} = this
+        const lengthOption = {}
+        if (dataList.length > 0) {
+          lengthOption.slideLength = dataList.length
+        }
+        return Object.assign({}, this.swipe, this.options, lengthOption)
       },
       activeIndex () {
         return this.active

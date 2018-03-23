@@ -21,10 +21,10 @@
     <icon3 type="search" class="left2" @tap.user="clickSearch" />
   </header>
   <view class="container">
-    <swiper :options="swipes" />
+    <swiper :options="swipes" :dataList.sync="dataList" />
     <menu />
-    <recommend1 filterKey="businessId" value="101"/>
-    <recommend2 filterKey="businessId" value="102"/>
+    <recommend1 filterKey="businessId" value="101" />
+    <recommend2 filterKey="businessId" value="102" />
     <hot1
       filterKey="pid"
       value="8724"
@@ -106,7 +106,7 @@
   import Header from '@/components/common/header'
   import Icon from '@/components/share/icon'
   import i18nMixin from '@/mixins/i18n'
-  import Swiper from '@/components/share/swiper'
+  import Swiper from '@/components/share/swiper/index'
   import Menu from './components/menu'
   import PicLists from './components/piclist'
   import PicLists1 from './components/piclist1'
@@ -153,24 +153,21 @@
       hotCardsMore: '../../theme/images/pai7.jpg',
       small: true,
       swipes: {
-        autoplay: 5000,
-        slideLength: 4,
-        datas: [
-          {url: '../../theme/images/10.jpg', title: '轮播1', key: 0},
-          {url: '../../theme/images/111.jpg', title: '轮播2', key: 1},
-          {url: '../../theme/images/111.jpg', title: '轮播3', key: 2},
-          {url: '../../theme/images/111.jpg', title: '轮播4', key: 3}
-        ]
+        autoplay: 5000
       },
+      dataList: [],
       i18n: {
         ns: 'index'
       }
     }
     onLoad () {
+      const self = this
       this.methods.getCategory()
       this.methods.getRecommend({
-        params: {
-          type: 'recommend'
+        success (res) {
+          const {data} = res
+          self.dataList = data.filter(item => item.type === 'course')
+          self.$apply()
         }
       })
     }
@@ -222,19 +219,6 @@
       clickSearch (e) {
         console.log('clickSearch', e)
       }
-//      changeLanguage () {
-//        const lang = this.$root.$parent.globalData.language === 'zh' ? 'en' : 'zh'
-//        this.$root.$parent.changeLanguage(lang, () => {
-//          this.$broadcast('language-changed')
-//        })
-//      }
     }
-
-//    events = {
-//      'language-changed': (...args) => {
-//        console.log(this.computed)
-//        this.computed.title.apply(this)
-//      }
-//    }
   }
 </script>
