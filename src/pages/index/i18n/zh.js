@@ -12,5 +12,6 @@ export default {
   shoeTitle: '时尚鞋履',
   bagTitle: '实用包类',
   decorationTitle: '潮人配饰',
-  brandTitle: '新入驻品牌'
+  brandTitle: '新入驻品牌',
+  likeTitle: '你可能喜欢'
 }

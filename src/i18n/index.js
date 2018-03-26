@@ -70,7 +70,8 @@ export default {
     const { keys, namespace } = this.extractFromKey(key)
 
     if (!this._resource[namespace]) {
-      return console.warn(`[I18N]: ${namespace} does not exist!`)
+      return
+      // return console.warn(`[I18N]: ${namespace} does not exist!`)
     }
 
     const formatKey = keys.reduce((res, key) => {

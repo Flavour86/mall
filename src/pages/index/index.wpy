@@ -103,6 +103,10 @@
       filterKey="pid"
       value="8736"
       :title.sync="brandTitle" />
+    <scrollMore
+      :title.sync="likeTitle"
+      className="mt-15" />
+    <toast />
   </view>
 </template>
 
@@ -116,11 +120,13 @@
   import PicLists from './components/piclist'
   import PicLists1 from './components/piclist1'
   import Recommend from '@/components/common/recommend'
+  import ScrollMore from './components/scrollMore'
   import Hot from './components/hot'
   import { connect } from 'wepy-redux'
   import * as actions from './redux/actions'
   import * as $C from './constants'
   import ImageX from '@/components/share/image'
+  import Toast from 'wepy-com-toast'
 
   @connect({
     categorys: state => state.categorys
@@ -150,7 +156,9 @@
       Pics5: PicLists1,
       Pics6: PicLists1,
       Pics7: PicLists1,
-      Pics8: PicLists1
+      Pics8: PicLists1,
+      scrollMore: ScrollMore,
+      toast: Toast
     }
     data = {
       hotStyle: $C.PANELTYPE.TEXT,
@@ -210,6 +218,9 @@
       },
       brandTitle () {
         return this.$t('brandTitle', 'index')
+      },
+      likeTitle () {
+        return this.$t('likeTitle', 'index')
       }
     }
     methods = {
@@ -223,6 +234,12 @@
       },
       clickSearch (e) {
         console.log('clickSearch', e)
+      }
+    }
+
+    events = {
+      'message': (data) => {
+        this.$invoke('toast', 'show', data)
       }
     }
   }

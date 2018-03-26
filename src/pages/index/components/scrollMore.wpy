@@ -3,11 +3,15 @@
 <template>
   <panel :className="className">
     <view slot="title" class="h2-tit-2">{{title}}</view>
-    <scroll-view class="slp-list">
+    <scroll-view class="slp-list" scroll-y bindscrolltolower="onScrollBottom">
       <repeat for="{{products}}" index="index" item="item" key="index">
-        <view class="list-item">
+        <view class="slp-item">
           <imageX :dSrc="item.pic" mode="aspectFill"/>
-          <text class="slp-name"></text>
+          <text class="slp-name">{{item.name}}</text>
+          <view class="slp-price">
+            <text class="n-pri">{{item.minPrice}}</text>
+            <text class="o-pri">{{item.originalPrice}}</text>
+          </view>
         </view>
       </repeat>
     </scroll-view>
@@ -18,7 +22,13 @@
   import wepy from 'wepy'
   import Panel from '@/components/common/panel'
   import ImageX from '@/components/share/image'
+  import { connect } from 'wepy-redux'
+  import * as actions from '../redux/actions'
 
+
+  @connect({}, {
+    ...actions
+  })
   export default class ScrollMore extends wepy.component {
     components = {
       panel: Panel,
@@ -27,13 +37,58 @@
     data = {
       params: {
         page: 1,
-        pageSize: 6
+        pageSize: 6,
+        categoryId: 8737
       },
+      noData: false,
       products: []
     }
 
-    props = {
+    onSuccess (res) {
+      const {data} = res
+      if (!data || res.code === '404' && res.msg === '暂无数据') {
+        this.noData = true
+        this.$emit('message', {
+          title: '没有数据了!'
+        })
+        return
+      }
+      this.products = this.products.concat(data)
+      this.params.page = +this.params.page + 1
+      this.$apply()
+    }
 
+    getProducts () {
+      const self = this
+      const {params} = this
+      this.methods.getProduct({
+        params,
+        success: self.onSuccess.bind(self)
+      })
+    }
+
+    onLoad () {
+      this.getProducts()
+    }
+    props = {
+      className: {
+        type: [String],
+        coerce: function (v) {
+          return v ? 'col-box-2 ' + v : 'col-box-2'
+        }
+      },
+      title: {
+        type: [String]
+      }
+    }
+
+    methods = {
+      onScrollBottom () {
+        if (this.noData) {
+          return
+        }
+        this.getProducts()
+      }
     }
   }
 </script>
