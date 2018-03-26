@@ -21,7 +21,7 @@
 <template>
   <header>
     <text class="page-title" slot="title" @tap="viewTap">{{ title }}</text>
-    <icon1 type="transfer" class="right" />
+    <transfer className="right" />
     <icon2 type="menu" class="left1" @tap.user="clickMenu" />
     <icon3 type="search" class="left2" @tap.user="clickSearch" />
   </header>
@@ -116,6 +116,7 @@
   import Icon from '@/components/share/icon'
   import i18nMixin from '@/mixins/i18n'
   import Swiper from '@/components/share/swiper/index'
+  import Transfer from '@/components/share/transfer'
   import Menu from './components/menu'
   import PicLists from './components/piclist'
   import PicLists1 from './components/piclist1'
@@ -136,7 +137,7 @@
   export default class Index extends wepy.page {
     components = {
       header: Header,
-      icon1: Icon,
+      transfer: Transfer,
       icon2: Icon,
       icon3: Icon,
       swiper: Swiper,

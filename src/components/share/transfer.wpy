@@ -1,0 +1,33 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <icon type="transfer" :className="className" @tap.user="onTransfer" />
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Icon from './icon'
+
+  export default class Transfer extends wepy.component {
+    components = {
+      icon: Icon
+    }
+    props = {
+      className: {
+        type: [String]
+      }
+    }
+
+    methods = {
+      onTransfer () {
+        wepy.scanCode({
+          success: (res) => {
+            console.log(res)
+          }
+        })
+      }
+    }
+  }
+</script>
