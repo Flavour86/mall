@@ -12,14 +12,39 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index/index',
-      'pages/example/example'
+      'pages/example/example',
+      'pages/cart/cart',
+      'pages/my/my',
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#000000',
       navigationBarTitleText: 'WeChat',
       navigationStyle: 'custom',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      "list": [{
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "theme/images/home.png",
+        "selectedIconPath": "theme/images/home_on.png"
+      }, {
+        "pagePath": "pages/example/example",
+        "text": "分类",
+        "iconPath": "theme/images/category.png",
+        "selectedIconPath": "theme/images/category_on.png"
+      }, {
+        "pagePath": "pages/cart/cart",
+        "text": "购物车",
+        "iconPath": "theme/images/cart.png",
+        "selectedIconPath": "theme/images/cart_on.png"
+      }, {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "theme/images/my.png",
+        "selectedIconPath": "theme/images/my_on.png"
+      }]
     }
   }
 

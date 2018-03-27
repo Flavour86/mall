@@ -1,0 +1,14 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <view>我的</view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+  }
+</script>

@@ -2,7 +2,7 @@
   .container {
     box-sizing: border-box;
     background-color: #f0f0f0;
-    margin-top: 88rpx;
+    margin-top: 128rpx;
   }
   .more {
     width: 50%;
@@ -21,9 +21,9 @@
 <template>
   <header>
     <text class="page-title" slot="title" @tap="viewTap">{{ title }}</text>
-    <transfer className="right" />
     <icon2 type="menu" class="left1" @tap.user="clickMenu" />
-    <icon3 type="search" class="left2" @tap.user="clickSearch" />
+    <transfer className="left2" />
+    <!--<icon3 type="search" class="left2" @tap.user="clickSearch" />-->
   </header>
   <view class="container">
     <swiper :options="swipes" :dataList.sync="dataList" />
