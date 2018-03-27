@@ -12,7 +12,7 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index/index',
-      'pages/example/example',
+      'pages/category/category',
       'pages/cart/cart',
       'pages/my/my',
     ],
@@ -30,7 +30,7 @@ export default class extends wepy.app {
         "iconPath": "theme/images/home.png",
         "selectedIconPath": "theme/images/home_on.png"
       }, {
-        "pagePath": "pages/example/example",
+        "pagePath": "pages/category/category",
         "text": "分类",
         "iconPath": "theme/images/category.png",
         "selectedIconPath": "theme/images/category_on.png"

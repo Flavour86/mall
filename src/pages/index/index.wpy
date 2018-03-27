@@ -20,7 +20,7 @@
 </style>
 <template>
   <header>
-    <text class="page-title" slot="title" @tap="viewTap">{{ title }}</text>
+    <text class="page-title" slot="title">{{ title }}</text>
     <icon2 type="menu" class="left1" @tap.user="clickMenu" />
     <transfer className="left2" />
     <!--<icon3 type="search" class="left2" @tap.user="clickSearch" />-->
@@ -225,11 +225,6 @@
       }
     }
     methods = {
-      viewTap() {
-        wepy.navigateTo({
-          url: '../example/example'
-        })
-      },
       clickMenu (e) {
         console.log(e, 'clickMenu')
       },

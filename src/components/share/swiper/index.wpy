@@ -54,8 +54,8 @@
       </repeat>
     </we-swipe>
     <view class="dot">
-      <repeat for="{{options.datas}}" index="index" key="key" item="data">
-        <view class="{{activeIndex === data.key ? 'active' : ''}}" />
+      <repeat for="{{dataList}}" index="index" key="key" item="data">
+        <view class="{{activeIndex === index ? 'active' : ''}}" />
       </repeat>
     </view>
   </view>
