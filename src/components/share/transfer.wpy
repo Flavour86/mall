@@ -24,7 +24,10 @@
       onTransfer () {
         wepy.scanCode({
           success: (res) => {
-            console.log(res)
+            this.$emit('success', res)
+          },
+          fail: err => {
+            this.$emit('success', err)
           }
         })
       }

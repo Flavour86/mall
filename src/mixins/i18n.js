@@ -1,7 +1,7 @@
 import wepy from 'wepy'
 import i18n from '@/i18n'
 
-export default class testMixin extends wepy.mixin {
+export default class i18nMixin extends wepy.mixin {
   data = {
     mixin: 'This is mixin data.'
   }

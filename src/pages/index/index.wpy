@@ -22,7 +22,7 @@
   <header>
     <text class="page-title" slot="title">{{ title }}</text>
     <icon2 type="menu" class="left1" @tap.user="clickMenu" />
-    <transfer className="left2" />
+    <transfer className="left2" @success.user="onTransferSuccess" @fail.user="onTransferFail" />
     <!--<icon3 type="search" class="left2" @tap.user="clickSearch" />-->
   </header>
   <view class="container">
@@ -230,6 +230,12 @@
       },
       clickSearch (e) {
         console.log('clickSearch', e)
+      },
+      onTransferSuccess (res) {
+        console.log(res, 'onTransferSuccess')
+      },
+      onTransferFail (err) {
+        console.log(err, 'onTransferFail')
       }
     }
 
