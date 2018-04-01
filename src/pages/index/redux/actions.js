@@ -9,8 +9,8 @@ export const getCourse = createAction(types.GET_COURSE,
 )
 
 export const getCategory = createAction(types.GET_CATEGORY,
-  () => {
-    return $dateProvider.category.GET().then(res => res)
+  options => {
+    return $dateProvider.category.GET(options).then(res => res)
   }
 )
 

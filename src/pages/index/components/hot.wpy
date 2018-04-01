@@ -2,8 +2,8 @@
 
 <template>
   <panel :className="className">
-    <view slot="title" class="h2-tit">{{title}}</view>
-    <view class="cate-list clearfix">
+    <view wx:if="{{!!title.length}}" slot="title" class="h2-tit">{{title}}</view>
+    <view wx:if="{{!!hotCategory.length}}" class="cate-list clearfix">
       <repeat for="{{hotCategory}}" index="index" item="item" key="index">
         <view class="{{isHidden ? 'item-style1 bigSize' : 'item-style1'}}">
           <imageX :dSrc="item.icon" mode="aspectFill" />
@@ -49,12 +49,18 @@
       },
       title: {
         type: [String]
+      },
+      showListNum: {
+        type: [Number]
       }
     }
     computed = {
       hotCategory () {
-        const categorys = this.computed.categorys().filter(item => item[this.filterKey] === +this.value)
-        return categorys
+        let categorys = this.computed.categorys()
+        if (this.filterKey && this.value) {
+          categorys = categorys.filter(item => item[this.filterKey] === +this.value)
+        }
+        return this.showListNum ? categorys.slice(0, this.showListNum) : categorys
       },
       isHidden () {
         return this.styleType === $C.PANELTYPE.NOTEXT

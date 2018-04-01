@@ -3,7 +3,7 @@
 <template>
   <panel :className="className">
     <view slot="title" class="h2-tit-2">{{title}}</view>
-    <view class="col-list clearfix">
+    <view wx:if="{{!!products.length}}" class="col-list clearfix">
       <repeat for="{{products}}" index="index" item="item" key="index">
         <view class="{{small ? 'item small' : 'item'}}" style="width:{{width}};">
           <imageX :dSrc="item.pic" mode="aspectFill"/>

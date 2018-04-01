@@ -1,23 +1,4 @@
-<style lang="less">
-  .container {
-    box-sizing: border-box;
-    background-color: #f0f0f0;
-    margin-top: 128rpx;
-  }
-  .more {
-    width: 50%;
-    padding: 0;
-    position: relative;
-
-    image {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
-  }
-</style>
+<style lang="less" src="./index.less" />
 <template>
   <header>
     <text class="page-title" slot="title">{{ title }}</text>
@@ -25,9 +6,19 @@
     <transfer className="left2" @success.user="onTransferSuccess" @fail.user="onTransferFail" />
     <!--<icon3 type="search" class="left2" @tap.user="clickSearch" />-->
   </header>
-  <view class="container">
-    <swiper :options="swipes" :dataList.sync="dataList" />
-    <menu />
+  <view  wx:if="{{!loading}}" class="container">
+    <swiper :options="swipes" :dataList.sync="dataList" className="swipe" />
+    <hot0
+      filterKey="pid"
+      value="0"
+      className="menu"
+      :showListNum="menuNum"
+      :styleType="hotStyle">
+      <view class="item-style1" @tap="tabCategory">
+        <icon1 type="category" class="category" />
+        <text class="category-name">{{allCategory}}</text>
+      </view>
+    </hot0>
     <recommend1 filterKey="businessId" value="101" />
     <recommend2 filterKey="businessId" value="102" />
     <hot1
@@ -105,6 +96,7 @@
       :title.sync="brandTitle" />
     <scrollMore
       :title.sync="likeTitle"
+      categoryId="8737"
       className="mt-15" />
     <toast />
   </view>
@@ -115,13 +107,13 @@
   import Header from '@/components/common/header'
   import Icon from '@/components/share/icon'
   import i18nMixin from '@/mixins/i18n'
+  import Interaction from '@/mixins/interaction'
   import Swiper from '@/components/share/swiper/index'
   import Transfer from '@/components/share/transfer'
-  import Menu from './components/menu'
   import PicLists from './components/piclist'
   import PicLists1 from './components/piclist1'
   import Recommend from '@/components/common/recommend'
-  import ScrollMore from './components/scrollMore'
+  import ScrollMore from '@/components/common/scrollMore'
   import Hot from './components/hot'
   import { connect } from 'wepy-redux'
   import * as actions from './redux/actions'
@@ -138,16 +130,17 @@
     components = {
       header: Header,
       transfer: Transfer,
+      icon1: Icon,
       icon2: Icon,
       icon3: Icon,
       swiper: Swiper,
-      menu: Menu,
       recommend1: Recommend,
       recommend2: Recommend,
       recommend3: Recommend,
       recommend4: Recommend,
       recommend5: Recommend,
       hot1: Hot,
+      hot0: Hot,
       hot2: Hot,
       imageX: ImageX,
       Pics1: PicLists,
@@ -162,30 +155,47 @@
       toast: Toast
     }
     data = {
+      loading: true,
+      componentLoaded: 0,
+      menuNum: $C.ENDSIZE,
       hotStyle: $C.PANELTYPE.TEXT,
       hotCards: $C.PANELTYPE.NOTEXT,
       hotCardsMore: '../../theme/images/pai7.jpg',
       small: true,
       swipes: {
-        autoplay: 5000
       },
       dataList: [],
       i18n: {
         ns: 'index'
       }
     }
+
+    componentsLoaded () {
+      this.componentLoaded += 1
+      if (this.componentLoaded === 2) {
+        this.hideLoading()
+        this.loading = false
+        this.$apply()
+      }
+    }
+
     onLoad () {
+      this.showLoading()
       const self = this
-      this.methods.getCategory()
+      this.methods.getCategory({
+        success () {
+          self.componentsLoaded.apply(self)
+        }
+      })
       this.methods.getRecommend({
         success (res) {
           const {data} = res
           self.dataList = data.filter(item => item.type === 'course')
-          self.$apply()
+          self.componentsLoaded.apply(self)
         }
       })
     }
-    mixins = [i18nMixin]
+    mixins = [i18nMixin, Interaction]
     computed = {
       title () {
         return this.$t('indexTitle', 'index')
@@ -222,11 +232,17 @@
       },
       likeTitle () {
         return this.$t('likeTitle', 'index')
+      },
+      allCategory () {
+        return this.$t('allCategory', 'index')
       }
     }
     methods = {
       clickMenu (e) {
         console.log(e, 'clickMenu')
+        wepy.navigateTo({
+          url: '../list/index?id=8732&name=经典裤装'
+        })
       },
       clickSearch (e) {
         console.log('clickSearch', e)
@@ -236,6 +252,11 @@
       },
       onTransferFail (err) {
         console.log(err, 'onTransferFail')
+      },
+      tabCategory () {
+        wepy.switchTab({
+          url: '../category/category'
+        })
       }
     }
 

@@ -68,8 +68,7 @@ export default {
 
   translate (key, ...args) {
     const { keys, namespace } = this.extractFromKey(key)
-
-    if (!this._resource[namespace]) {
+    if (!this._resource[args || namespace]) {
       return
       // return console.warn(`[I18N]: ${namespace} does not exist!`)
     }
@@ -79,7 +78,7 @@ export default {
         return res[key]
       }
       return key
-    }, this._resource[namespace])
+    }, this._resource[args || namespace])
     // console.log(this._resource, namespace, formatKey, args)
     return format(formatKey, ...args)
   }

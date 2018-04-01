@@ -1,0 +1,77 @@
+<style lang="less">
+.list-more {
+  padding-top: 20rpx;
+  padding-left: 30rpx;
+}
+</style>
+
+<template>
+  <header>
+    <text class="page-title" slot="title">{{ name }}</text>
+    <back className="left1" @tap.user="back" />
+  </header>
+  <view class="container">
+    <scroll-more
+      className="list-more"
+      :categoryId.sync="id"
+      height="667px"
+      :onLoaded="onLoaded" />
+    {{onLoaded}}
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Interaction from '@/mixins/interaction'
+  import Header from '@/components/common/header'
+  import Back from '@/components/share/back'
+  import ScrollMore from '@/components/common/scrollMore'
+
+  export default class Index extends wepy.page {
+    components = {
+      header: Header,
+      back: Back,
+      'scroll-more': ScrollMore
+    }
+
+    data = {
+      id: '',
+      name: ''
+    }
+    mixins = [Interaction]
+    onLoad (option) {
+//      wepy.showLoading({
+//        title: '加载中...',
+//        mask: true,
+//        success () {
+//          setTimeout(() => {
+//            wepy.hideLoading()
+//          }, 2000)
+//        }
+//      })
+      this.showLoading()
+      this.syncView(option)
+    }
+
+    /**
+     * 同步设置到视图
+     * @param data {object} 同步到data的数据，以刷新视图
+     */
+    syncView (data) {
+      Object.keys(data).forEach(key => {
+        this[key] = data[key]
+      })
+      this.$apply()
+    }
+
+    onLoaded = () => {
+      this.hideLoading()
+    }
+
+    methods = {
+      back () {
+        wepy.navigateBack()
+      }
+    }
+  }
+</script>

@@ -28,6 +28,7 @@
 
     methods = {
       onError () {
+        console.log('imageX: ', this.dSrc)
         this.dSrc = this.errorSrc
       },
       tap (e) {

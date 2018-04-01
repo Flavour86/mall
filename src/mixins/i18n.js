@@ -17,7 +17,7 @@ export default class i18nMixin extends wepy.mixin {
 
   events = {
     'language-loaded': () => {
-      // console.log(this.computed)
+      // console.log(this, '22')
     }
   }
 

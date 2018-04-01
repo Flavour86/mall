@@ -40,7 +40,7 @@
 </style>
 
 <template>
-  <panel :className="className">
+  <panel wx:if="{{!!products.length}}" :className="className">
     <view slot="title" class="h2-tit-2">{{title}}</view>
     <image src="{{headerSrc}}" mode="aspectFill" class="big-pic"/>
     <view class="sp-list clearfix">
