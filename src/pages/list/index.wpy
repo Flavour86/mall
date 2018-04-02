@@ -15,6 +15,7 @@
       className="list-more"
       :categoryId.sync="id"
       height="667px"
+      loadSize="10"
       :onLoaded="onLoaded" />
     {{onLoaded}}
   </view>

@@ -51,6 +51,9 @@
       categoryId: {
         type: [Number, String]
       },
+      loadSize: {
+        type: [Number, String]
+      },
       onLoaded: {
         type: [Function],
         default: () => {}
@@ -85,14 +88,18 @@
     getProducts () {
       this.showLoading()
       const self = this
-      const {params, categoryId} = this
-      this.methods.getProduct({
+      const {params, categoryId, loadSize} = this
+      const options = {
         params: {
           ...params,
           categoryId
         },
         success: self.onSuccess.bind(self)
-      })
+      }
+      if (!!loadSize) {
+        options.params.pageSize = loadSize
+      }
+      this.methods.getProduct(options)
     }
 
     onLoad () {
