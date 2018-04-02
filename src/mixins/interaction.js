@@ -3,8 +3,9 @@ import i18n from '@/i18n'
 
 export default class Interaction extends wepy.mixin {
   showLoading (options = {}) {
+    console.log(i18n.translate('loading', 'common'), 'showLoading111')
     const object = {
-      title: i18n.translate('loading', 'common'),
+      title: i18n.translate('loading', 'common') || '加载中...',
       mask: false,
       ...options
     }
