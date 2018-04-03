@@ -5,7 +5,7 @@
     <view wx:if="{{!!title.length}}" slot="title" class="h2-tit">{{title}}</view>
     <view wx:if="{{!!hotCategory.length}}" class="cate-list clearfix">
       <repeat for="{{hotCategory}}" index="index" item="item" key="index">
-        <view class="{{isHidden ? 'item-style1 bigSize' : 'item-style1'}}">
+        <view class="{{isHidden ? 'item-style1 bigSize' : 'item-style1'}}" @tap="tap('{{item}}')">
           <imageX :dSrc="item.icon" mode="aspectFill" />
           <text wx:if="{{!isHidden}}">{{item.name}}</text>
         </view>
@@ -64,6 +64,12 @@
       },
       isHidden () {
         return this.styleType === $C.PANELTYPE.NOTEXT
+      }
+    }
+
+    methods = {
+      tap (data) {
+        this.$root.redirectUrl(data, 'list')
       }
     }
   }

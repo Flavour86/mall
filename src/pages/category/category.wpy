@@ -116,16 +116,9 @@
       active (curVal, oldVal) {
         if (curVal !== oldVal && !this.activeChild.length) {
           const data = this.computed.categoryList()[curVal]
-          this.redirectUrl(data)
+          this.$root.redirectUrl(data, 'list')
         }
       }
-    }
-
-    redirectUrl ({id, name} = {}) {
-      const url = `../list/index?id=${id}&name=${name}`
-      wepy.navigateTo({
-        url: url
-      })
     }
 
     methods = {
@@ -134,7 +127,7 @@
       },
       tapChild (data) {
 //        const {id} = data
-        this.redirectUrl(data)
+        this.$root.redirectUrl(data, 'list')
       },
       back () {
         wepy.switchTab({

@@ -2,10 +2,13 @@ import wepy from 'wepy'
 import i18n from '@/i18n'
 
 export default class Interaction extends wepy.mixin {
+  data = {
+    loadingText: '加载中..'
+  }
   showLoading (options = {}) {
-    console.log(i18n.translate('loading', 'common'), 'showLoading111')
+    const {loadingText} = this
     const object = {
-      title: i18n.translate('loading', 'common') || '加载中...',
+      title: i18n.translate('loading', 'common') || loadingText,
       mask: false,
       ...options
     }
@@ -38,5 +41,13 @@ export default class Interaction extends wepy.mixin {
       ...options
     }
     wepy.showModal(object)
+  }
+
+  redirectUrl ({id, name} = {}, page) {
+    if (!page) return console.error('There is no page to jump')
+    const url = `../${page}/index?id=${id}&name=${name}`
+    wepy.navigateTo({
+      url: url
+    })
   }
 }

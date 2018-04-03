@@ -10,14 +10,13 @@
     <text class="page-title" slot="title">{{ name }}</text>
     <back className="left1" @tap.user="back" />
   </header>
-  <view class="container">
+  <view class="container" wx:if="{{!!id && !!name}}">
     <scroll-more
       className="list-more"
       :categoryId.sync="id"
       height="667px"
       loadSize="10"
       :onLoaded="onLoaded" />
-    {{onLoaded}}
   </view>
 </template>
 
@@ -28,7 +27,7 @@
   import Back from '@/components/share/back'
   import ScrollMore from '@/components/common/scrollMore'
 
-  export default class Index extends wepy.page {
+  export default class List extends wepy.page {
     components = {
       header: Header,
       back: Back,
@@ -40,25 +39,20 @@
       name: ''
     }
     mixins = [Interaction]
-    onLoad (option) {
-//      wepy.showLoading({
-//        title: '加载中...',
-//        mask: true,
-//        success () {
-//          setTimeout(() => {
-//            wepy.hideLoading()
-//          }, 2000)
-//        }
-//      })
-      this.showLoading()
-      this.syncView(option)
+    onLoad (options) {
+      const self = this
+      this.showLoading({
+        success () {
+          self.syncView(options)
+        }
+      })
     }
 
     /**
      * 同步设置到视图
      * @param data {object} 同步到data的数据，以刷新视图
      */
-    syncView (data) {
+    syncView = (data) => {
       Object.keys(data).forEach(key => {
         this[key] = data[key]
       })

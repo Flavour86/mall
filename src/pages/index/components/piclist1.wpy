@@ -45,10 +45,10 @@
     <image src="{{headerSrc}}" mode="aspectFill" class="big-pic"/>
     <view class="sp-list clearfix">
       <repeat for="{{products}}" index="index" item="item" key="index">
-        <view wx:if="{{index === 0}}" class="first list-item">
+        <view wx:if="{{index === 0}}" class="first list-item" @tap="tap('{{item}}')">
           <imageX :dSrc="item.pic" mode="aspectFill"/>
         </view>
-        <view wx:else class="list-item">
+        <view wx:else class="list-item" @tap="tap('{{item}}')">
           <imageX :dSrc="item.pic" mode="aspectFill"/>
         </view>
       </repeat>
@@ -107,6 +107,10 @@
       },
       renderData: {
         type: [Array]
+      },
+      page: {
+        type: [String],
+        default: 'detail'
       }
     }
 
@@ -141,6 +145,13 @@
           }
         }
         this.$root.methods[actionName](options)
+      }
+    }
+    methods = {
+      tap (data) {
+        console.log(data)
+        const {page} = this
+        this.$root.redirectUrl(data, page)
       }
     }
   }

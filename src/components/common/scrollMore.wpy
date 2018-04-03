@@ -3,7 +3,7 @@
 <template>
   <panel :className="className">
     <view wx:if="{{!!title.length}}" slot="title" class="h2-tit-2">{{title}}</view>
-    <scroll-view class="slp-list" scroll-y bindscrolltolower="onScrollBottom" style="height: {{height}}">
+    <scroll-view wx:if="{{!!products.length}}" class="slp-list" scroll-y bindscrolltolower="onScrollBottom" style="height: {{height}}">
       <repeat for="{{products}}" index="index" item="item" key="index">
         <view class="slp-item">
           <imageX :dSrc="item.pic" mode="aspectFill"/>
@@ -15,6 +15,7 @@
         </view>
       </repeat>
     </scroll-view>
+    <text wx:else>暂时没有数据！</text>
   </panel>
 </template>
 
@@ -49,7 +50,7 @@
         type: [String]
       },
       categoryId: {
-        type: [Number, String]
+        type: [String, Number]
       },
       loadSize: {
         type: [Number, String]
@@ -61,6 +62,7 @@
     }
     mixins = [Interaction]
     data = {
+      isFirst: true,
       params: {
         page: 1,
         pageSize: 6
@@ -74,11 +76,12 @@
       this.hideLoading()
       if (!data || res.code === '404' && res.msg === '暂无数据') {
         this.noData = true
-        this.showToast({
+        !this.isFirst && this.showToast({
           title: '没有更多数据了!'
         })
         return
       }
+      this.isFirst = false
       this.products = this.products.concat(data)
       this.params.page = +this.params.page + 1
       this.$apply()
@@ -99,11 +102,19 @@
       if (!!loadSize) {
         options.params.pageSize = loadSize
       }
-      this.methods.getProduct(options)
+      categoryId && this.methods.getProduct(options)
     }
 
     onLoad () {
       this.getProducts()
+    }
+
+    watch = {
+      categoryId (c, o) {
+        if (c !== o) {
+          this.getProducts()
+        }
+      }
     }
 
     methods = {

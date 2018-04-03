@@ -91,6 +91,7 @@
       length="6"
       className="mt-15"
       :renderData.sync="categorys"
+      page="list"
       filterKey="pid"
       value="8736"
       :title.sync="brandTitle" />

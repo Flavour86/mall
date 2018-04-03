@@ -2,15 +2,6 @@ import wepy from 'wepy'
 import i18n from '@/i18n'
 
 export default class i18nMixin extends wepy.mixin {
-  data = {
-    mixin: 'This is mixin data.'
-  }
-  methods = {
-    tap () {
-      this.mixin = 'mixin data was changed'
-    }
-
-  }
   $t (...args) {
     return i18n.translate(...args)
   }
