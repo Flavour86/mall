@@ -1,4 +1,11 @@
 <style lang="less">
+.container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  bottom: 0;
+  background-color: #f0f0f0;
+}
 .list-more {
   padding-top: 20rpx;
   padding-left: 30rpx;
@@ -14,7 +21,7 @@
     <scroll-more
       className="list-more"
       :categoryId.sync="id"
-      height="667px"
+      height="600px"
       loadSize="10"
       :onLoaded="onLoaded" />
   </view>

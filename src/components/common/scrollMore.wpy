@@ -15,15 +15,17 @@
         </view>
       </repeat>
     </scroll-view>
-    <text wx:else>暂时没有数据！</text>
+    <empty wx:else :emptyText="noDataText" iconType="product" />
   </panel>
 </template>
 
 <script>
   import wepy from 'wepy'
   import Panel from '@/components/common/panel'
+  import Empty from '@/components/common/empty'
   import ImageX from '@/components/share/image'
   import Interaction from '@/mixins/interaction'
+  import i18nMixin from '@/mixins/i18n'
   import { connect } from 'wepy-redux'
   import * as actions from '../../pages/index/redux/actions'
 
@@ -34,7 +36,8 @@
   export default class ScrollMore extends wepy.component {
     components = {
       panel: Panel,
-      imageX: ImageX
+      imageX: ImageX,
+      empty: Empty
     }
     props = {
       className: {
@@ -60,7 +63,7 @@
         default: () => {}
       }
     }
-    mixins = [Interaction]
+    mixins = [i18nMixin, Interaction]
     data = {
       isFirst: true,
       params: {
@@ -76,8 +79,9 @@
       this.hideLoading()
       if (!data || res.code === '404' && res.msg === '暂无数据') {
         this.noData = true
+        const title = this.computed.noMore.apply(this)
         !this.isFirst && this.showToast({
-          title: '没有更多数据了!'
+          title
         })
         return
       }
@@ -122,8 +126,16 @@
         if (this.noData) {
           return
         }
-        console.log('onScrollBottom')
         this.getProducts()
+      }
+    }
+
+    computed = {
+      noDataText () {
+        return this.$t('noData', 'common')
+      },
+      noMore () {
+        return this.$t('noMore', 'common')
       }
     }
   }

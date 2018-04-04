@@ -20,12 +20,12 @@ export default class i18nMixin extends wepy.mixin {
     this.loadSpaceI18N()
   }
   loadSpaceI18N () {
-    const config = this.i18n
+    const config = this.i18n || {}
     const global = this.$root.$parent
     if (!config) return
     config.locales = {
-      'zh': `../pages/${config.ns}/i18n/zh.js`,
-      'en': `../pages/${config.ns}/i18n/en.js`
+      'zh': `../pages/${config.ns || 'common'}/i18n/zh.js`,
+      'en': `../pages/${config.ns || 'common'}/i18n/en.js`
     }
     i18n.init({
       ns: config.ns,
