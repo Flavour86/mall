@@ -242,7 +242,7 @@
       clickMenu (e) {
         console.log(e, 'clickMenu')
         wepy.navigateTo({
-          url: '../list/index?id=8732&name=经典裤装'
+          url: '../detail/index?id=33039'
         })
       },
       clickSearch (e) {

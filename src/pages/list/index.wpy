@@ -61,7 +61,9 @@
      */
     syncView = (data) => {
       Object.keys(data).forEach(key => {
-        this[key] = data[key]
+        if (key in this) {
+          this[key] = data[key]
+        }
       })
       this.$apply()
     }

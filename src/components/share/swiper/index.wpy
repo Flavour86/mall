@@ -52,6 +52,7 @@
         <view class="{{activeIndex === index ? 'active' : ''}}" />
       </repeat>
     </view>
+    <slot></slot>
   </view>
 </template>
 

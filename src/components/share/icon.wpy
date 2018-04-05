@@ -9,7 +9,11 @@
   export default class Icon extends wepy.component {
     props = {
       type: {
-        type: [String]
+        type: [String],
+        coerce (v) {
+          console.log(v, '111')
+          return v
+        }
       },
       className: {
         type: [String]
@@ -23,6 +27,12 @@
     methods = {
       iconTap (e) {
         this.$emit('tap', e)
+      }
+    }
+
+    watch = {
+      type (a, b) {
+        console.log(a, b)
       }
     }
 
