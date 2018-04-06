@@ -241,15 +241,6 @@
       }
     }
     methods = {
-      clickMenu (e) {
-        console.log(e, 'clickMenu')
-        wepy.navigateTo({
-          url: '../detail/index?id=33039'
-        })
-      },
-      clickSearch (e) {
-        console.log('clickSearch', e)
-      },
       onTransferSuccess (res) {
         console.log(res, 'onTransferSuccess')
       },
