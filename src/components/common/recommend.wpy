@@ -1,7 +1,7 @@
 <style lang="less" src="./recommend.less" />
 
 <template>
-  <view class="recommend">
+  <view wx:if="{{!!picUrl.length}}" class="recommend">
     <imageX :dSrc.sync="picUrl" mode="aspectFill" />
   </view>
 </template>

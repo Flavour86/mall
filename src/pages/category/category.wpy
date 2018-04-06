@@ -1,18 +1,76 @@
 <style lang="less">
+.category{
+  position: absolute;
+  left:0;
+  right:0;
+  bottom: 0;
+  top: 0;
 
+  .level {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .item {
+      width: 100%;
+      height: 100rpx;
+      line-height: 100rpx;
+      text-indent: 20rpx;
+      font-size: 28rpx;
+      box-sizing: border-box;
+    }
+  }
+
+  .p {
+    width: 45%;
+    float: left;
+
+    .active {
+      background-color: #f8f8f8;
+    }
+  }
+  .c {
+    width: 55%;
+    float: right;
+    background-color: #f8f8f8;
+
+    .item {
+      border-bottom: #e6e6e6 1px solid;
+
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+}
 </style>
 
 <template>
   <header>
     <text class="page-title" slot="title">{{ title }}</text>
-    <!--<icon3 type="search" class="left2" @tap.user="clickSearch" />-->
+    <back className="left1" @tap.user="back" />
   </header>
+  <view class="container category">
+    <view wx:if="{{!!categoryList.length}}" class="level p">
+      <repeat for="{{categoryList}}" index="index" item="item" key="index">
+        <view class="{{active === index ? 'item active' : 'item'}}" @tap="tapParent('{{index}}')">{{item.name}}</view>
+      </repeat>
+    </view>
+    <view wx:if="{{!!activeChild.length}}" class="level c">
+      <repeat for="{{activeChild}}" index="index" item="item" key="index">
+        <view class="item" @tap="tapChild('{{item}}')">{{item.name}}</view>
+      </repeat>
+    </view>
+  </view>
 </template>
 
 <script>
   import wepy from 'wepy'
   import i18nMixin from '@/mixins/i18n'
+  import Interaction from '@/mixins/interaction'
   import Header from '@/components/common/header'
+  import Back from '@/components/share/back'
+  import * as $C from './utils/consts'
   import { connect } from 'wepy-redux'
   import {recombinateCategory} from './utils/helpers'
 
@@ -21,22 +79,61 @@
   })
   export default class Index extends wepy.page {
     components = {
-      header: Header
+      header: Header,
+      back: Back
     }
     data = {
       i18n: {
         ns: 'category'
-      }
+      },
+      activeChild: [],
+      active: $C.ACTIVE
     }
-    mixins = [i18nMixin]
+    mixins = [i18nMixin, Interaction]
     computed = {
       title () {
         return this.$t('title', 'category')
       }
     }
 
+    refreshActiveChild (i) {
+      this.activeChild = this.computed.categoryList()[i || this.active].children || []
+      this.active = i === undefined ? this.active : i
+      this.$apply()
+      this.hideLoading()
+    }
+
+    onLaunch () {
+      this.showLoading()
+    }
+
     onLoad () {
-      console.log(this, this.computed.categoryList(), 222)
+      this.refreshActiveChild()
+      this.hideLoading()
+    }
+
+    watch = {
+      active (curVal, oldVal) {
+        if (curVal !== oldVal && !this.activeChild.length) {
+          const data = this.computed.categoryList()[curVal]
+          this.$root.redirectUrl(data, 'list')
+        }
+      }
+    }
+
+    methods = {
+      tapParent (index) {
+        this.refreshActiveChild(index)
+      },
+      tapChild (data) {
+//        const {id} = data
+        this.$root.redirectUrl(data, 'list')
+      },
+      back () {
+        wepy.switchTab({
+          url: '../index/index'
+        })
+      }
     }
   }
 </script>

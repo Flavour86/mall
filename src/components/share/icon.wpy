@@ -26,6 +26,12 @@
       }
     }
 
+    watch = {
+      type (a, b) {
+        console.log(a, b)
+      }
+    }
+
     onLoad() {
       this.iconClass = `icon-${this.type}`
       if (this.className && this.className.length) {

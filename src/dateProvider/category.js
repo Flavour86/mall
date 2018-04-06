@@ -22,8 +22,16 @@ class ProductListsModel extends REST {
   }
 }
 
+class ProductDetailModel extends REST {
+  constructor () {
+    super()
+    this.baseUri = ['https://api.it120.cc', $C.API_CODE, 'shop/goods/detail']
+  }
+}
+
 export default {
   category: new CategoryModel(),
   recommend: new RecommendModel(),
-  products: new ProductListsModel()
+  products: new ProductListsModel(),
+  productDetail: new ProductDetailModel()
 }

@@ -2,18 +2,19 @@
 // import json from 'json-bigint'
 import wepy from 'wepy'
 import i18n from '@/i18n'
+import {encode, addParam} from './helpers'
 
 // const PROTECTION_PREFIX = /^\)\]\}',?\n/
-const encode = encodeURIComponent
-const addParam = (url, params) => {
-  let arr = Object.keys(params).map(key => encode(key) + '=' + encode(params[key])).join('&')
-
-  if (!arr) {
-    return url
-  }
-
-  return url + (url.indexOf('?') !== -1 ? '&' : '?') + arr
-}
+// const encode = encodeURIComponent
+// const addParam = (url, params) => {
+//   let arr = Object.keys(params).map(key => encode(key) + '=' + encode(params[key])).join('&')
+//
+//   if (!arr) {
+//     return url
+//   }
+//
+//   return url + (url.indexOf('?') !== -1 ? '&' : '?') + arr
+// }
 
 /**
  * Ajax Request, based on axios

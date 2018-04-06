@@ -1,0 +1,53 @@
+.slp-list {
+  width: 96%;
+  box-sizing: border-box;
+  margin: 20rpx auto 0;
+  overflow: hidden;
+  //height: 1100rpx;
+
+  ::-webkit-scrollbar {
+    display:none
+  }
+
+  .slp-item {
+    width: 50%;
+    float: left;
+    position: relative;
+    height: 550rpx;
+
+    image {
+      display: block;
+      width: 92%;
+      height: 420rpx;
+    }
+    .slp-name, .slp-price {
+      display: block;
+      width: 92%;
+      margin: 0 auto;
+    }
+    .slp-name {
+      //height: 60rpx;
+      line-height: 30rpx;
+      font-size: 24rpx;
+      margin: 16rpx auto 10rpx;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+    .slp-price {
+      height: 24rpx;
+      line-height: 24rpx;
+      color: #444;
+      font-size: 24rpx;
+    }
+    .n-pri {
+      color: #d0021b;
+      padding-right: 10rpx;
+    }
+    .o-pri {
+      color: #b0b0b0;
+      text-decoration: line-through
+    }
+  }
+}

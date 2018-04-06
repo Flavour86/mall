@@ -37,7 +37,7 @@ export default {
     this._resource[ns] = res
   },
 
-  extractFromKey (key) {
+  extractFromKey (key, args) {
     const nsSeparator = ':'
     const keySeparator = '.'
     let namespace, keys
@@ -46,6 +46,8 @@ export default {
       const parts = key.split(nsSeparator)
       namespace = parts[0]
       key = parts[1]
+    } else if (args) {
+      namespace = args
     } else {
       namespace = this._config.ns
     }
@@ -67,8 +69,7 @@ export default {
   },
 
   translate (key, ...args) {
-    const { keys, namespace } = this.extractFromKey(key)
-
+    const { keys, namespace } = this.extractFromKey(key, ...args)
     if (!this._resource[namespace]) {
       return
       // return console.warn(`[I18N]: ${namespace} does not exist!`)
@@ -80,7 +81,6 @@ export default {
       }
       return key
     }, this._resource[namespace])
-    // console.log(this._resource, namespace, formatKey, args)
     return format(formatKey, ...args)
   }
 }

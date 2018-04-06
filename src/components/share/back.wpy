@@ -1,0 +1,29 @@
+<style lang="less">
+
+</style>
+
+<template>
+  <icon type="back" :className="className" @tap.user="tap" />
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Icon from './icon'
+
+  export default class Back extends wepy.component {
+    components = {
+      icon: Icon
+    }
+    props = {
+      className: {
+        type: [String]
+      }
+    }
+
+    methods = {
+      tap (e) {
+        this.$emit('tap', e)
+      }
+    }
+  }
+</script>

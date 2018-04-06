@@ -1,0 +1,172 @@
+<style lang="less" src="./detail.less" />
+
+<template>
+  <header>
+    <text class="page-title" slot="title">{{ detailTitle }}</text>
+    <back className="left1" @tap.user="back"/>
+  </header>
+  <view class="container" wx:if="{{!!products}}">
+    <swiper :dataList.sync="swiperList" className="detail-swipe">
+      <view class="swiper-txt">{{basicInfo.name}}</view>
+    </swiper>
+    <view class="detail-price">
+      <text class="minPrice">{{minPrice + ':￥' + basicInfo.minPrice}}</text>
+      <text class="originalPrice">{{originPrice + ':￥' + basicInfo.originalPrice}}</text>
+    </view>
+    <view class="detail-ensure">
+      <repeat for="{{commissionType}}" index="index" item="item" key="index">
+        <text class="detail-ensure-item">
+          <icon1 wx:if="{{item.icon}}" type="select2" className="detail-ensure-select" />
+          <icon2 wx:else type="select1" className="detail-ensure-select" />
+          <text class="detail-ensure-text">{{item.text}}</text>
+        </text>
+      </repeat>
+    </view>
+    <d-panel-product :title.sync="productInfo" className="mt-15" detailClass="productInfo" titleEN="PRODUCT INFO">
+      <parse-wxml-product :parseData.sync="productInfoHTML" parserName="productInfo" />
+    </d-panel-product>
+    <d-panel-size :title.sync="sizeInfo" className="mt-15" detailClass="sizeInfo" titleEN="SIZE INFO">
+      <parse-wxml-size :parseData.sync="sizeInfoHTML" parserName="sizeInfo" />
+    </d-panel-size>
+    <d-panel-detail :title.sync="detailTitle" className="mt-15" detailClass="detailInfo" titleEN="DETAILS">
+      <parse-wxml-detail :parseData.sync="detailHTML" parserName="sizeInfo" />
+    </d-panel-detail>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Interaction from '@/mixins/interaction'
+  import i18nMixin from '@/mixins/i18n'
+  import Header from '@/components/common/header'
+  import Swiper from '@/components/share/swiper/index'
+  import Back from '@/components/share/back'
+  import Icon from '@/components/share/icon'
+  import ParseWxml from '@/components/share/templateParse/parse'
+  import DPanel from './components/panel'
+  import * as $C from './constants'
+  import {connect} from 'wepy-redux'
+  import * as actions from './actions'
+
+  @connect(null, {
+    ...actions
+  })
+  export default class Index extends wepy.page {
+    components = {
+      header: Header,
+      back: Back,
+      swiper: Swiper,
+      icon1: Icon,
+      icon2: Icon,
+      'd-panel-product': DPanel,
+      'd-panel-size': DPanel,
+      'd-panel-detail': DPanel,
+      'parse-wxml-product': ParseWxml,
+      'parse-wxml-detail': ParseWxml,
+      'parse-wxml-size': ParseWxml
+    }
+    data = {
+      id: '',
+      products: null,
+      swiperList: [],
+      basicInfo: null,
+      commissionType: $C.COMMISSIONTYPE,
+      productInfoHTML: null,
+      sizeInfoHTML: null,
+      detailHTML: null,
+      i18n: {
+        ns: 'detail'
+      }
+    }
+    mixins = [i18nMixin, Interaction]
+
+    onLoad({id} = {}) {
+      const self = this
+      this.showLoading()
+      !!id && this.methods.getProductDetail({
+        params: {
+          id
+        },
+        success (res) {
+          const {data} = res
+          const swiperList = data.pics.map(pic => ({
+            ...pic,
+            picUrl: pic.pic
+          }))
+          const basicInfo = data.basicInfo
+          const commissionType = $C.COMMISSIONTYPE.map(type => ({
+            text: self.computed[`commission${type}`].apply(self),
+            icon: type === basicInfo.commissionType
+          }))
+          const productInfoHTML = self.parseHTML(data.content, 'productInfo')
+          const sizeInfoHTML = self.parseHTML(data.content, 'size')
+          const detailHTML = self.parseHTML(data.content, 'detail')
+          const pageData = {
+            products: data,
+            swiperList,
+            basicInfo,
+            commissionType,
+            productInfoHTML,
+            sizeInfoHTML,
+            detailHTML
+          }
+          Object.keys(data).length && self.syncView(pageData)
+          self.hideLoading()
+        }
+      })
+    }
+
+    parseHTML = (str, type) => {
+      let tempStr
+      const reg = new RegExp(`(<table.*?>[\\s\\S]*?<\\/table>)`, 'ig')
+      if (str && str.length && type) {
+        tempStr = str.match(reg)
+        if (tempStr && tempStr.length) {
+          tempStr = tempStr.filter(item => item.indexOf(`id="${type}"`) > -1)[0]
+        }
+      }
+      return tempStr
+    }
+
+    /**
+     * 同步设置到视图
+     * @param data {object} 同步到data的数据，以刷新视图
+     */
+    syncView = (data) => {
+      Object.keys(data).forEach(key => {
+        if (key in this) {
+          this[key] = data[key]
+        }
+      })
+      this.$apply()
+    }
+    methods = {
+      back () {
+        wepy.navigateBack()
+      }
+    }
+    computed = {
+      detailTitle () {
+        return this.$t('detailTitle', 'detail')
+      },
+      minPrice () {
+        return this.$t('minPrice', 'detail')
+      },
+      originPrice () {
+        return this.$t('originPrice', 'detail')
+      },
+      commission1 () {
+        return this.$t('commission1', 'detail')
+      },
+      commission2 () {
+        return this.$t('commission2', 'detail')
+      },
+      productInfo () {
+        return this.$t('productInfo', 'detail')
+      },
+      sizeInfo () {
+        return this.$t('sizeInfo', 'detail')
+      }
+    }
+  }
+</script>
