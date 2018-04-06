@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use strict';
 
 // HTML 支持的数学符号

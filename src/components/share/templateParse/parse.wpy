@@ -32,6 +32,13 @@
     data = {
       htmlParserTpl: {}
     }
+    wxParseImgLoad (image) {
+      let imgInfo = image.detail
+      console.log(imgInfo)
+    }
+    wxParseImgTap (e, image) {
+      console.log(e, image)
+    }
     watch = {
       parseData (a, b) {
         if (!!a && a !== b) {

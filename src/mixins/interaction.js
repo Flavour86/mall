@@ -1,5 +1,6 @@
 import wepy from 'wepy'
 import i18n from '@/i18n'
+import {addParam} from '@/utils/helpers'
 
 export default class Interaction extends wepy.mixin {
   data = {
@@ -45,7 +46,8 @@ export default class Interaction extends wepy.mixin {
 
   redirectUrl ({id, name} = {}, page) {
     if (!page) return console.error('There is no page to jump')
-    const url = `../${page}/index?id=${id}&name=${name}`
+    let url = `../${page}/index`
+    url = addParam(url, {id, name})
     wepy.navigateTo({
       url: url
     })

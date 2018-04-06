@@ -22,13 +22,13 @@
         </text>
       </repeat>
     </view>
-    <d-panel-product :title.sync="productInfo" className="mt-15" detailClass="productInfo" wx:if="{{!!productInfoHTML}}" titleEN="PRODUCT INFO">
+    <d-panel-product :title.sync="productInfo" className="mt-15" detailClass="productInfo" titleEN="PRODUCT INFO">
       <parse-wxml-product :parseData.sync="productInfoHTML" parserName="productInfo" />
     </d-panel-product>
-    <d-panel-size :title.sync="sizeInfo" className="mt-15" detailClass="sizeInfo" wx:if="{{!!sizeInfoHTML}}" titleEN="SIZE INFO">
+    <d-panel-size :title.sync="sizeInfo" className="mt-15" detailClass="sizeInfo" titleEN="SIZE INFO">
       <parse-wxml-size :parseData.sync="sizeInfoHTML" parserName="sizeInfo" />
     </d-panel-size>
-    <d-panel-detail :title.sync="detailTitle" className="mt-15" detailClass="detailInfo" wx:if="{{!!detailHTML}}" titleEN="DETAILS">
+    <d-panel-detail :title.sync="detailTitle" className="mt-15" detailClass="detailInfo" titleEN="DETAILS">
       <parse-wxml-detail :parseData.sync="detailHTML" parserName="sizeInfo" />
     </d-panel-detail>
   </view>
@@ -80,11 +80,13 @@
     }
     mixins = [i18nMixin, Interaction]
 
-    onLoad(options) {
+    onLoad({id} = {}) {
       const self = this
       this.showLoading()
-      this.methods.getProductDetail({
-        params: options,
+      !!id && this.methods.getProductDetail({
+        params: {
+          id
+        },
         success (res) {
           const {data} = res
           const swiperList = data.pics.map(pic => ({

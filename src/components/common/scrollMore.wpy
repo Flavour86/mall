@@ -5,7 +5,7 @@
     <view wx:if="{{!!title.length}}" slot="title" class="h2-tit-2">{{title}}</view>
     <scroll-view wx:if="{{!!products.length}}" class="slp-list" scroll-y bindscrolltolower="onScrollBottom" style="height: {{height}}">
       <repeat for="{{products}}" index="index" item="item" key="index">
-        <view class="slp-item">
+        <view class="slp-item" @tap="tap('{{item}}')">
           <imageX :dSrc="item.pic" mode="aspectFill"/>
           <text class="slp-name">{{item.name}}</text>
           <view class="slp-price">
@@ -127,6 +127,9 @@
           return
         }
         this.getProducts()
+      },
+      tap (data) {
+        this.$root.redirectUrl(data, 'detail')
       }
     }
 

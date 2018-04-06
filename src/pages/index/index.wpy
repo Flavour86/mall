@@ -34,7 +34,9 @@
       className="mt-15"
       :title.sync="hotCardsTitle">
       <view class="item-style1 more">
-        <imageX dSrc="../../theme/images/pai7.jpg" />
+        <navigator url="../list/index?id=8729&name={{hotCardsTitle}}">
+          <imageX dSrc="../../theme/images/pai7.jpg" />
+        </navigator>
       </view>
     </hot2>
     <Pics1

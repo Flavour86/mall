@@ -1,5 +1,5 @@
+/* eslint-disable */
 'use strict';
-
 var _showdown = require('./showdown.js');
 
 var _showdown2 = _interopRequireDefault(_showdown);
