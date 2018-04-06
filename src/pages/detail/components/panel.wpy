@@ -1,0 +1,71 @@
+<style lang="less">
+  .detail-box {
+    width: 100%;
+    padding: 0 40rpx;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #e3e3e3;
+    border-width: 1px 0;
+
+    .detail-box-tit {
+      width: 100%;
+      height: 128rpx;
+      line-height: 128rpx;
+      border-bottom: 1px solid #e3e3e3;
+      font-size: 36rpx;
+      color: #424242
+    }
+    .title-en {
+      font-size: 24rpx;
+      padding-left: 10rpx;
+      color: #a2a2a2;
+      font-weight: 400
+    }
+    .detail-box-list {
+      width: 100%;
+      margin: 20rpx 0;
+    }
+  }
+</style>
+
+<template>
+  <view class="{{className}}">
+    <view class="detail-box-tit" wx:if="{{!!title}}">
+      {{title}}
+      <text wx:if="{{!!titleEN}}" class="title-en">{{titleEN}}</text>
+    </view>
+    <view class="{{detailClass}}">
+      <slot></slot>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class DPanel extends wepy.component {
+    props = {
+      className: {
+        type: [String],
+        coerce: function (v) {
+          return v ? 'detail-box ' + v : 'detail-box'
+        }
+      },
+      title: {
+        type: [String]
+      },
+      titleEN: {
+        type: [String]
+      },
+      detailClass: {
+        type: [String],
+        coerce: function (v) {
+          return v ? 'detail-box-list ' + v : 'detail-box-list'
+        }
+      }
+    }
+    data = {
+
+    }
+  }
+</script>

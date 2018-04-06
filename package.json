@@ -27,7 +27,8 @@
     "wepy-async-function": "^1.4.4",
     "wepy-com-swiper": "1.0.0",
     "wepy-com-toast": "^1.0.2",
-    "wepy-redux": "^1.5.3"
+    "wepy-redux": "^1.5.3",
+    "wxParse": "git+https://github.com/icindy/wxParse.git"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",

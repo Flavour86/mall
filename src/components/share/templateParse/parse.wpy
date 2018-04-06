@@ -1,0 +1,55 @@
+<style lang="less">
+
+</style>
+<template>
+  <import src="../../components/share/templateParse/wxParse/wxParse.wxml"/>
+  <block wx:for="{{htmlParserTpl.nodes}}" wx:key="{{index}}">
+    <template is="wxParse0" data="{{item}}"/>
+  </block>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import WxParse from './wxParse/wxParse'
+
+  export default class ParseWxml extends wepy.component {
+    props = {
+      parseData: {
+        type: [String]
+      },
+      parserName: {
+        type: [String]
+      },
+      parserType: {
+        type: [String],
+        default: 'html'
+      },
+      parserPadding: {
+        type: [Number],
+        default: 0
+      }
+    }
+    data = {
+      htmlParserTpl: {}
+    }
+    watch = {
+      parseData (a, b) {
+        if (!!a && a !== b) {
+          this.parseWXML(a)
+        }
+      }
+    }
+
+    parseWXML (data) {
+      const {parserName, parserType, parserPadding} = this
+      let htmlContent = WxParse.wxParse(parserName, parserType, data, this, parserPadding)
+      this.htmlParserTpl = htmlContent[this.parserName]
+      this.$apply()
+    }
+
+    onLoad () {
+      const {parseData: article} = this
+      article && this.parseWXML(article)
+    }
+  }
+</script>

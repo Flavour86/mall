@@ -9,11 +9,7 @@
   export default class Icon extends wepy.component {
     props = {
       type: {
-        type: [String],
-        coerce (v) {
-          console.log(v, '111')
-          return v
-        }
+        type: [String]
       },
       className: {
         type: [String]

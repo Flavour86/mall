@@ -1,90 +1,4 @@
-<style lang="less">
-  .detail-swipe {
-    display: flex;
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    height: 800rpx;
-
-    image {
-      height: 100%;
-    }
-    .swiper-txt {
-      display: block;
-      width: 100%;
-      height: 86rpx;
-      background: rgba(0, 0, 0, .5);
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      color: #fff;
-      line-height: 86rpx;
-      box-sizing: border-box;
-      padding: 0 40rpx;
-      font-size: 32rpx;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      z-index: 30;
-    }
-
-    .dot {
-      bottom: 100rpx;
-    }
-  }
-  .detail-price, .detail-ensure {
-    height: 80rpx;
-    line-height: 80rpx;
-    border-bottom: 1px solid #e3e3e3;
-    box-sizing: border-box;;
-    padding-left: 40rpx;
-    background-color: #fff;
-    font-size: 36rpx;
-    color: #f60000;
-  }
-
-  .detail-price .originalPrice {
-    color: #999;
-    font-size: 28rpx;
-    text-decoration: line-through;
-    margin-left: 20rpx;
-  }
-
-  .detail-ensure-text {
-    color: #b4b4b4;
-    padding-right: 40rpx;
-    font-size: 32rpx;;
-    margin-left: 10rpx;
-  }
-  .detail-ensure-select {
-    font-size:40rpx;
-  }
-
-  table#info {
-    display: block;
-    /*border-collapse: collapse;*/
-
-    tbody {
-      display: block;
-    }
-    tr {
-      display: flex;
-      width: 100%;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: stretch;
-      /*justify-content: space-between;*/
-    }
-    td {
-      /*display: flex;*/
-      flex: 1 0;
-      border: #fff 1px solid;
-      padding: 16 rpx 20 rpx;
-      width: 50%;
-      font-size: 28 rpx;
-    }
-  }
-</style>
+<style lang="less" src="./detail.less" />
 
 <template>
   <header>
@@ -108,6 +22,15 @@
         </text>
       </repeat>
     </view>
+    <d-panel-product :title.sync="productInfo" className="mt-15" detailClass="productInfo" wx:if="{{!!productInfoHTML}}" titleEN="PRODUCT INFO">
+      <parse-wxml-product :parseData.sync="productInfoHTML" parserName="productInfo" />
+    </d-panel-product>
+    <d-panel-size :title.sync="sizeInfo" className="mt-15" detailClass="sizeInfo" wx:if="{{!!sizeInfoHTML}}" titleEN="SIZE INFO">
+      <parse-wxml-size :parseData.sync="sizeInfoHTML" parserName="sizeInfo" />
+    </d-panel-size>
+    <d-panel-detail :title.sync="detailTitle" className="mt-15" detailClass="detailInfo" wx:if="{{!!detailHTML}}" titleEN="DETAILS">
+      <parse-wxml-detail :parseData.sync="detailHTML" parserName="sizeInfo" />
+    </d-panel-detail>
   </view>
 </template>
 
@@ -119,6 +42,8 @@
   import Swiper from '@/components/share/swiper/index'
   import Back from '@/components/share/back'
   import Icon from '@/components/share/icon'
+  import ParseWxml from '@/components/share/templateParse/parse'
+  import DPanel from './components/panel'
   import * as $C from './constants'
   import {connect} from 'wepy-redux'
   import * as actions from './actions'
@@ -132,7 +57,13 @@
       back: Back,
       swiper: Swiper,
       icon1: Icon,
-      icon2: Icon
+      icon2: Icon,
+      'd-panel-product': DPanel,
+      'd-panel-size': DPanel,
+      'd-panel-detail': DPanel,
+      'parse-wxml-product': ParseWxml,
+      'parse-wxml-detail': ParseWxml,
+      'parse-wxml-size': ParseWxml
     }
     data = {
       id: '',
@@ -140,6 +71,9 @@
       swiperList: [],
       basicInfo: null,
       commissionType: $C.COMMISSIONTYPE,
+      productInfoHTML: null,
+      sizeInfoHTML: null,
+      detailHTML: null,
       i18n: {
         ns: 'detail'
       }
@@ -162,16 +96,34 @@
             text: self.computed[`commission${type}`].apply(self),
             icon: type === basicInfo.commissionType
           }))
+          const productInfoHTML = self.parseHTML(data.content, 'productInfo')
+          const sizeInfoHTML = self.parseHTML(data.content, 'size')
+          const detailHTML = self.parseHTML(data.content, 'detail')
           const pageData = {
             products: data,
             swiperList,
             basicInfo,
-            commissionType
+            commissionType,
+            productInfoHTML,
+            sizeInfoHTML,
+            detailHTML
           }
           Object.keys(data).length && self.syncView(pageData)
           self.hideLoading()
         }
       })
+    }
+
+    parseHTML = (str, type) => {
+      let tempStr
+      const reg = new RegExp(`(<table.*?>[\\s\\S]*?<\\/table>)`, 'ig')
+      if (str && str.length && type) {
+        tempStr = str.match(reg)
+        if (tempStr && tempStr.length) {
+          tempStr = tempStr.filter(item => item.indexOf(`id="${type}"`) > -1)[0]
+        }
+      }
+      return tempStr
     }
 
     /**
@@ -206,6 +158,12 @@
       },
       commission2 () {
         return this.$t('commission2', 'detail')
+      },
+      productInfo () {
+        return this.$t('productInfo', 'detail')
+      },
+      sizeInfo () {
+        return this.$t('sizeInfo', 'detail')
       }
     }
   }
